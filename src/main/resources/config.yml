@@ -1,0 +1,9 @@
+###################
+#Bingo By Duckulus#
+###################
+
+lobbyTime: 60 # The time before the game starts
+minPlayers: 2 # The amount of Players required for the game to start
+borderSize: 10000 # The size of the WorldBorder
+forcestartTime: 15 # The time the timer skips to when forcestarting the game
+gameDuration: 900 # The duration of the main phase of the game

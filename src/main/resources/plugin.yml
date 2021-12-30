@@ -1,0 +1,22 @@
+name: Bingo
+version: '${project.version}'
+main: de.amin.bingo.BingoPlugin
+api-version: 1.18
+authors: [ Duckulus ]
+description: Bingo
+commands:
+  forcestart:
+    aliases:
+      - fs
+    permission: bingo.fs
+    description: Force Starts the Game if possible
+  board:
+    aliases:
+      - cboard
+      - seeboard
+    description: Lets you view your BingoBoard
+  reroll:
+    aliases:
+      - rr
+    description: rerolls all boards
+    permission: bingo.reroll
