@@ -8,6 +8,7 @@ import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.listeners.*;
+import fr.minuskube.inv.InventoryManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -41,6 +42,10 @@ public final class BingoPlugin extends JavaPlugin {
 
         GameStateManager gameStateManager = new GameStateManager(this, game, renderer);
         gameStateManager.setGameState(GameState.PRE_STATE);
+
+        //Initialization of InventoryManager for SmartInvs
+        InventoryManager inventoryManager = new InventoryManager(this);
+        inventoryManager.init();
 
         registerListeners(getServer().getPluginManager(), gameStateManager);
         registerCommands(gameStateManager, game, renderer);

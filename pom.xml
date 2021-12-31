@@ -6,7 +6,7 @@
 
     <groupId>de.amin</groupId>
     <artifactId>Bingo</artifactId>
-    <version>0.1</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>Bingo</name>
@@ -95,6 +95,10 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>fr.minuskube.inv</groupId>
+            <artifactId>smart-invs</artifactId>
+            <version>1.2.7</version>
+        </dependency>
     </dependencies>
 </project>
