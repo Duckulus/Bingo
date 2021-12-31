@@ -26,7 +26,7 @@
         cd Bingo
 3. Build the Project using maven
 
-        mvn clean install
+        mvn clean package
 
 #### This Puts the plugin jar into the ./target directory inside of the project
 
