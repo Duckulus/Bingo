@@ -10,11 +10,11 @@
 ![Preview](public/preview.png)
 
 ## Commands
-####/board - Prints out the Bingo Board to the chat
+#### /board - Prints out the Bingo Board to the chat
 
-####/reroll - Rerolls all items on the Board
+#### /reroll - Rerolls all items on the Board
 
-####/forcestart - Skips the Cooldown before the game
+#### /forcestart - Skips the Cooldown before the game
 
 ## Building Locally
 #### To build this Project on your local machine you need to have [maven](https://maven.apache.org/download.cgi) installed and added to your PATH
@@ -28,10 +28,12 @@
 
         mvn clean install
 
-####This Puts the plugin jar into the ./target directory inside of the project
+#### This Puts the plugin jar into the ./target directory inside of the project
 
-##Other Information
-####Inspired by: [HGLabor Bingo](https://github.com/HGLabor/Bingo)
-#### Download: [soon]()
+## Other Information
+
+#### Inspired by: [HGLabor Bingo](https://github.com/HGLabor/Bingo)
+
+#### Download: [SpigotMC](https://www.spigotmc.org/resources/bingo.98825/)
         
 
