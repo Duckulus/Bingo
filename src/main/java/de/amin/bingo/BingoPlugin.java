@@ -80,8 +80,6 @@ public final class BingoPlugin extends JavaPlugin {
             File world = new File(Bukkit.getWorldContainer(), properties.getProperty("level-name"));
             FileUtils.deleteDirectory(world);
 
-            File nether = new File(Bukkit.getWorldContainer(), "world_nether");
-            FileUtils.deleteDirectory(nether);
             // Creating needed directories
             world.mkdirs();
             new File(world, "data").mkdirs();
@@ -91,13 +89,6 @@ public final class BingoPlugin extends JavaPlugin {
             new File(world, "poi").mkdirs();
             new File(world, "region").mkdirs();
 
-            new File(nether, "data").mkdirs();
-            new File(nether, "DIM-1").mkdirs();
-            new File(nether, "datapacks").mkdirs();
-            new File(nether, "entities").mkdirs();
-            new File(nether, "playerdata").mkdirs();
-            new File(nether, "poi").mkdirs();
-            new File(nether, "region").mkdirs();
         } catch (IOException e) {
             e.printStackTrace();
         }
