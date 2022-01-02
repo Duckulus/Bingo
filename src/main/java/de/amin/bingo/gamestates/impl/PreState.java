@@ -62,8 +62,8 @@ public class PreState extends GameState {
                         }
 
                         player.setLevel(time);
-                        time--;
                     });
+                    time--;
                 } else {
                     time = Constants.PRESTATE_TIME;
                     plugin.getServer().getOnlinePlayers().forEach(player -> {
@@ -76,7 +76,7 @@ public class PreState extends GameState {
             } else {
                 gameStateManager.setGameState(GameState.MAIN_STATE);
             }
-        }, 0, 20);
+        }, 0,  20);
     }
 
     public int getTime() {
