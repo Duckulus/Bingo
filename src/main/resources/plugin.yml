@@ -1,9 +1,9 @@
 name: Bingo
 version: '${project.version}'
 main: de.amin.bingo.BingoPlugin
-api-version: 1.18
 authors: [ Duckulus ]
 description: Bingo
+api-version: 1.13
 commands:
   forcestart:
     aliases:
