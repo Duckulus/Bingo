@@ -1,11 +1,11 @@
 package de.amin.bingo.gamestates.impl;
 
 import de.amin.bingo.BingoPlugin;
-import de.amin.bingo.gamestates.GameState;
-import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.game.board.BingoItem;
 import de.amin.bingo.game.board.map.BoardRenderer;
+import de.amin.bingo.gamestates.GameState;
+import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.utils.Constants;
 import de.amin.bingo.utils.TimeUtils;
 import net.md_5.bungee.api.ChatMessageType;
@@ -55,7 +55,7 @@ public class MainState extends GameState {
         });
 
         WorldBorder border = plugin.getServer().getWorlds().get(0).getWorldBorder();
-        border.setCenter(0,0);
+        border.setCenter(0, 0);
         border.setSize(Constants.BORDER_SIZE);
 
 
@@ -69,26 +69,26 @@ public class MainState extends GameState {
 
     private void startTimer() {
         timerId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-            if(time>0) {
+            if (time > 0) {
                 plugin.getServer().getOnlinePlayers().forEach(player -> {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.GREEN + TimeUtils.formatTime(time)).create());
 
                     //check for all players if they have a new item from the board
                     for (BingoItem item : game.getBoard(player).getItems()) {
-                        if(!item.isFound()) {
+                        if (!item.isFound()) {
                             for (ItemStack content : player.getInventory().getContents()) {
-                                if(content!=null && content.getType().equals(item.getMaterial())) {
+                                if (content != null && content.getType().equals(item.getMaterial())) {
                                     item.setFound(true);
                                     plugin.getServer().broadcastMessage(ChatColor.YELLOW + player.getName() +
                                             " found an item! "
-                                    + ChatColor.DARK_GRAY + "[" + game.getBoard(player).getFoundItems() + "/" + 9 + "]");
-                                    plugin.getServer().getOnlinePlayers().forEach(all -> all.playSound(all.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP,1,1));
+                                            + ChatColor.DARK_GRAY + "[" + game.getBoard(player).getFoundItems() + "/" + Constants.BOARD_SIZE + "]");
+                                    plugin.getServer().getOnlinePlayers().forEach(all -> all.playSound(all.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1, 1));
                                 }
                             }
                         }
                     }
 
-                    if(game.checkWin(player)) {
+                    if (game.checkWin(player)) {
                         plugin.getServer().broadcastMessage(ChatColor.BLUE + "BINGO! " + player.getName() + " won the Game!");
                         gameStateManager.setGameState(GameState.END_STATE);
                     }
@@ -106,7 +106,7 @@ public class MainState extends GameState {
                 plugin.getServer().broadcastMessage(ChatColor.RED + "No one finished, so there is no winner!");
                 gameStateManager.setGameState(GameState.END_STATE);
             }
-        },0, 20);
+        }, 0, 20);
 
     }
 
@@ -114,7 +114,7 @@ public class MainState extends GameState {
         ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
         MapView view = Bukkit.createMap(Bukkit.getWorlds().get(0));
         //clear renderers one by one
-        for(MapRenderer renderer : view.getRenderers())
+        for (MapRenderer renderer : view.getRenderers())
             view.removeRenderer(renderer);
 
         view.addRenderer(renderer);
