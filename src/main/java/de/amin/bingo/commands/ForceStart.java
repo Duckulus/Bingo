@@ -4,6 +4,7 @@ import de.amin.bingo.BingoPlugin;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.gamestates.impl.PreState;
 import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Localization;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,10 +22,12 @@ public class ForceStart implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(gameStateManager.getCurrentGameState() instanceof PreState preState)) {
+        if(!(gameStateManager.getCurrentGameState() instanceof PreState)) {
             sender.sendMessage(ChatColor.RED + "This Command cannot be used at this Stage of the game!");
             return false;
         }
+
+        PreState preState = (PreState) gameStateManager.getCurrentGameState();
 
         if(preState.getTime() < Constants.FORCESTART_TIME) {
             sender.sendMessage(ChatColor.RED + "The Game is already starting!");
@@ -37,7 +40,9 @@ public class ForceStart implements CommandExecutor {
         }
 
         preState.setTime(Constants.FORCESTART_TIME);
-        plugin.getServer().broadcastMessage(ChatColor.DARK_GRAY + "The Game has been force-started by an Operator");
+        plugin.getServer().getOnlinePlayers().forEach(player -> {
+            player.sendMessage(Localization.get(player, "command.forcestart.message"));
+        });
 
         return false;
     }

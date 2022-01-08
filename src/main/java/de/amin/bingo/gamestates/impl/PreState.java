@@ -4,6 +4,7 @@ import de.amin.bingo.BingoPlugin;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Localization;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.ChatColor;
@@ -53,9 +54,8 @@ public class PreState extends GameState {
                     server.getOnlinePlayers().forEach(player -> {
 
                         switch (time) {
-                            case 60, 30, 15, 10, 5, 3, 2, 1 -> {
-                                player.sendMessage(ChatColor.AQUA + "The Game will start in "
-                                        + ChatColor.YELLOW + time + (time == 1 ? " Second" : " Seconds") + ChatColor.AQUA + "!");
+                            case 60: case 30: case 15: case 10: case 5: case 3: case 2: case 1:  {
+                                player.sendMessage(Localization.get(player, "game.prestate.timer", String.valueOf(time)));
                                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
                             }
 
@@ -68,9 +68,7 @@ public class PreState extends GameState {
                     time = Constants.PRESTATE_TIME;
                     plugin.getServer().getOnlinePlayers().forEach(player -> {
                         int missingPlayers = Constants.MIN_PLAYERS - plugin.getServer().getOnlinePlayers().size();
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.RED + "Waiting for " +
-                                ChatColor.YELLOW + missingPlayers +
-                                " " +  (missingPlayers==1 ? "player" : "players") + ChatColor.RED + "!").create());
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(Localization.get(player, "game.prestate.player_missing", String.valueOf(missingPlayers))).create());
                     });
                 }
             } else {

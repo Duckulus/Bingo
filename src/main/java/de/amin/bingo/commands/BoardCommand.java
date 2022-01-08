@@ -5,6 +5,7 @@ import de.amin.bingo.game.board.BingoBoard;
 import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.game.board.BingoItem;
 import de.amin.bingo.gamestates.impl.PreState;
+import de.amin.bingo.utils.Localization;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,7 +24,8 @@ public class BoardCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player player))return false;
+        if(!(sender instanceof Player))return false;
+        Player player = (Player) sender;
 
         if(gameStateManager.getCurrentGameState() instanceof PreState) {
             player.sendMessage(ChatColor.RED + "The board has not been generated yet!");
@@ -32,7 +34,7 @@ public class BoardCommand implements CommandExecutor {
         BingoBoard board = game.getBoard(player);
         if(board==null)return false;
 
-        player.sendMessage(ChatColor.DARK_GRAY + "Your board:");
+        player.sendMessage(Localization.get(player, "command.board.message"));
         for (int i = 0; i < board.getItems().length; i++) {
             //Material appears green if found, red if not
             BingoItem item = board.getItems()[i];

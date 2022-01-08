@@ -6,6 +6,7 @@ import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.gamestates.impl.PreState;
+import de.amin.bingo.utils.Localization;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -33,8 +34,10 @@ public class RerollCommand implements CommandExecutor {
             return false;
         }
 
-        plugin.getServer().broadcastMessage(ChatColor.DARK_GRAY + "The board has been rerolled!");
-        plugin.getServer().getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_CLUSTER_BREAK,1,1));
+        plugin.getServer().getOnlinePlayers().forEach(player -> {
+            player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_CLUSTER_BREAK,1,1);
+            player.sendMessage(Localization.get(player, "command.reroll.message"));
+        });
         game.createBoards();
         renderer.updateImages();
         return false;

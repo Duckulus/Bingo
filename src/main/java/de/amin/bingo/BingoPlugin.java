@@ -8,6 +8,7 @@ import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.listeners.*;
+import de.amin.bingo.utils.Localization;
 import fr.minuskube.inv.InventoryManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
@@ -31,9 +32,10 @@ public final class BingoPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info(ChatColor.GREEN + "Plugin has been initialized");
-
         INSTANCE = this;
+
+        Localization.load();
+        getLogger().info(ChatColor.GREEN + "Plugin has been initialized");
 
         saveDefaultConfig();
 
@@ -46,6 +48,7 @@ public final class BingoPlugin extends JavaPlugin {
         //Initialization of InventoryManager for SmartInvs
         InventoryManager inventoryManager = new InventoryManager(this);
         inventoryManager.init();
+
 
         registerListeners(getServer().getPluginManager(), gameStateManager);
         registerCommands(gameStateManager, game, renderer);

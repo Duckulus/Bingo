@@ -7,6 +7,7 @@ import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Localization;
 import de.amin.bingo.utils.TimeUtils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -18,6 +19,7 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MainState extends GameState {
 
@@ -48,10 +50,10 @@ public class MainState extends GameState {
             player.setFoodLevel(100);
             player.getInventory().clear();
             player.getInventory().setItemInOffHand(boardMap);
-            player.teleport(player.getWorld().getHighestBlockAt(new Random().nextInt(-25, 25), new Random().nextInt(-25, 25)).getLocation());
+            player.teleport(player.getWorld().getHighestBlockAt(ThreadLocalRandom.current().nextInt(-25, 25), ThreadLocalRandom.current().nextInt(-25, 25)).getLocation());
 
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
-            player.sendMessage(ChatColor.AQUA + "The Game has started. Good Luck!");
+            player.sendMessage(Localization.get(player, "game.mainstate.start"));
         });
 
         WorldBorder border = plugin.getServer().getWorlds().get(0).getWorldBorder();
@@ -79,9 +81,9 @@ public class MainState extends GameState {
                             for (ItemStack content : player.getInventory().getContents()) {
                                 if (content != null && content.getType().equals(item.getMaterial())) {
                                     item.setFound(true);
-                                    plugin.getServer().broadcastMessage(ChatColor.YELLOW + player.getName() +
-                                            " found an item! "
-                                            + ChatColor.DARK_GRAY + "[" + game.getBoard(player).getFoundItems() + "/" + Constants.BOARD_SIZE + "]");
+                                    plugin.getServer().broadcastMessage(Localization.get(player, "game.mainstate.itemfound", player.getName(),
+                                            String.valueOf(game.getBoard(player).getFoundItems()),
+                                            String.valueOf(Constants.BOARD_SIZE)));
                                     plugin.getServer().getOnlinePlayers().forEach(all -> all.playSound(all.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1, 1));
                                 }
                             }
@@ -89,21 +91,24 @@ public class MainState extends GameState {
                     }
 
                     if (game.checkWin(player)) {
-                        plugin.getServer().broadcastMessage(ChatColor.BLUE + "BINGO! " + player.getName() + " won the Game!");
+                        plugin.getServer().getOnlinePlayers().forEach(p -> {
+                            p.sendMessage(Localization.get(p, "game.mainstate.win", player.getName()));
+                        });
                         gameStateManager.setGameState(GameState.END_STATE);
                     }
                     switch (time) {
-                        case 30, 15, 10, 5, 3, 2, 1 -> {
+                        case 30: case 15: case 10: case 5: case 3: case 2: case 1: {
                             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1, 1);
-                            player.sendMessage(ChatColor.GOLD + "The Game will end in "
-                                    + ChatColor.RED + time + (time == 1 ? " Second" : " Seconds") + ChatColor.GOLD + "!");
+                            player.sendMessage(Localization.get(player, "game.mainstate.end", String.valueOf(time)));
                         }
                     }
                 });
 
                 time--;
             } else {
-                plugin.getServer().broadcastMessage(ChatColor.RED + "No one finished, so there is no winner!");
+                plugin.getServer().getOnlinePlayers().forEach(player -> {
+                    player.sendMessage(Localization.get(player, "game.mainstate.no_winner"));
+                });
                 gameStateManager.setGameState(GameState.END_STATE);
             }
         }, 0, 20);

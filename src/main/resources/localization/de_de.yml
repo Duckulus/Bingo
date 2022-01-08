@@ -1,0 +1,19 @@
+game:
+  prestate:
+    player_missing: "&Warte auf &e{0} weitere Spieler&c!"
+    timer: "&bDas Spiel startet in &e{0} Sekunden&b!"
+  mainstate:
+    start: "&bDas Spiel hat begonnen, Viel Glück!"
+    itemfound: "&e{0} hat ein Item gefunden! &8[{1}/{2}]"
+    win: "&9BINGO! &6{0} &9hat das Spiel gewonnen"
+    end: "&6Das Spiel endet in &c{0} Sekunden&6!"
+    no_winner: "&cKeiner hat das Spiel abgeschlossen, also gibt es keinen Sieger!"
+  endingstate:
+    server_restart: "§8Das Spiel wurde beendet. Der Server startet in Kürze neu."
+command:
+  forcestart:
+    message: "§8Der Spielstart wurde von einem Operator erzwungen."
+  reroll:
+    message: "§8Das Spielbrett wurde neu gemischt"
+  board:
+    message: "§8Dein Spielbrett:"
