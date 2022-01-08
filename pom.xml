@@ -6,7 +6,7 @@
 
     <groupId>de.amin</groupId>
     <artifactId>Bingo</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>Bingo</name>
@@ -40,7 +40,6 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputFile>C:\Users\aminh\Desktop\paper-1.18.1\plugins\Bingo.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
