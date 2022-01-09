@@ -21,11 +21,6 @@ public class Localization {
     private static BingoPlugin plugin = BingoPlugin.INSTANCE;
 
     public static void load() {
-
-
-//        plugin.saveResource("localization/en_us.yml", false);
-//        plugin.saveResource("localization/de_de.yml", false);
-
         //copy localization rescource bundle from jar into plugin data folder
         try {
             copyFromJar("localization/", Paths.get("plugins/bingo/localization/"));
@@ -50,7 +45,7 @@ public class Localization {
 
     public static String get(Player player, String key, String... replacements) {
         //look for localization in players locale or fallback to english if not found
-        YamlConfiguration config = localizations.getOrDefault(player.getLocale(), localizations.get("en_us"));
+        YamlConfiguration config = localizations.getOrDefault(player.getLocale(), localizations.get(Constants.DEFAULT_LOCALE));
         if (config != null && config.get(key) != null) {
             String localizedMessage = ChatColor.translateAlternateColorCodes('&', config.getString(key));
             for (int i = 0; i < replacements.length; i++) {

@@ -9,11 +9,11 @@ game:
     end: "&6The Game will end in &c{0} Seconds&6!"
     no_winner: "&cNo one finished, so there is no winner!"
   endingstate:
-    server_restart: "§8The Game has ended. The Server will close down shortly!"
+    server_restart: "&8The Game has ended. The Server will close down shortly!"
 command:
   forcestart:
-    message: "§8The game has been force-started by an Operator!"
+    message: "&8The game has been force-started by an Operator!"
   reroll:
-    message: "§8The board has been rerolled!"
+    message: "&8The board has been rerolled!"
   board:
-    message: "§8Your Board:"
+    message: "&8Your Board:"

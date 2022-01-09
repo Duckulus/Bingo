@@ -2,8 +2,15 @@
 #Bingo By Duckulus#
 ###################
 
-lobbyTime: 60 # The time before the game starts
-minPlayers: 2 # The amount of Players required for the game to start
-borderSize: 10000 # The size of the WorldBorder
-forcestartTime: 15 # The time the timer skips to when forcestarting the game
-gameDuration: 900 # The duration of the main phase of the game
+# The time before the game starts | DEFAULT=60
+lobbyTime: 60
+# The amount of Players required for the game to start | DEFAULT=2
+minPlayers: 2
+# The size of the WorldBorder | DEFAULT=10000
+borderSize: 10000
+# The time the timer skips to when forcestarting the game | DEFAULT=15
+forcestartTime: 15
+# The duration of the main phase of the game in seconds | DEFAULT=1800
+gameDuration: 1800
+# The Language that gets shown to players who use an unsupported Language | DEFAULT=en_us
+defaultLocale: "en_us"

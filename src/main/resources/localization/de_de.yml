@@ -9,11 +9,11 @@ game:
     end: "&6Das Spiel endet in &c{0} Sekunden&6!"
     no_winner: "&cKeiner hat das Spiel abgeschlossen, also gibt es keinen Sieger!"
   endingstate:
-    server_restart: "§8Das Spiel wurde beendet. Der Server startet in Kürze neu."
+    server_restart: "&8Das Spiel wurde beendet. Der Server startet in Kürze neu."
 command:
   forcestart:
-    message: "§8Der Spielstart wurde von einem Operator erzwungen."
+    message: "&8Der Spielstart wurde von einem Operator erzwungen."
   reroll:
-    message: "§8Das Spielbrett wurde neu gemischt"
+    message: "&8Das Spielbrett wurde neu gemischt"
   board:
-    message: "§8Dein Spielbrett:"
+    message: "&8Dein Spielbrett:"

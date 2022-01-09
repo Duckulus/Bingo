@@ -12,5 +12,6 @@ public class Constants {
     public static int BORDER_SIZE = config.getInt("borderSize");
     public static int FORCESTART_TIME = config.getInt("forcestartTime");
     public static int GAME_DURATION = config.getInt("gameDuration");
+    public static String DEFAULT_LOCALE = config.getString("defaultLocale");
     public static int BOARD_SIZE = 16;
 }
