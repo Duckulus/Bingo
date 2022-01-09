@@ -130,4 +130,8 @@ public class MainState extends GameState {
         itemStack.setItemMeta(mapMeta);
         return itemStack;
     }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
 }

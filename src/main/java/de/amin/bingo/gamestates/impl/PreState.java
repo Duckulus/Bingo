@@ -7,13 +7,12 @@ import de.amin.bingo.utils.Constants;
 import de.amin.bingo.utils.Localization;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PreState extends GameState {
 
@@ -35,7 +34,7 @@ public class PreState extends GameState {
             player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
             player.setFoodLevel(100);
             player.getInventory().clear();
-            player.teleport(player.getWorld().getHighestBlockAt(new Random().nextInt(-25, 25), new Random().nextInt(-25, 25)).getLocation());
+            player.teleport(player.getWorld().getHighestBlockAt(ThreadLocalRandom.current().nextInt(-25, 25), ThreadLocalRandom.current().nextInt(-25, 25)).getLocation());
         });
         startTimer();
     }
@@ -54,7 +53,14 @@ public class PreState extends GameState {
                     server.getOnlinePlayers().forEach(player -> {
 
                         switch (time) {
-                            case 60: case 30: case 15: case 10: case 5: case 3: case 2: case 1:  {
+                            case 60:
+                            case 30:
+                            case 15:
+                            case 10:
+                            case 5:
+                            case 3:
+                            case 2:
+                            case 1: {
                                 player.sendMessage(Localization.get(player, "game.prestate.timer", String.valueOf(time)));
                                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
                             }
@@ -74,7 +80,7 @@ public class PreState extends GameState {
             } else {
                 gameStateManager.setGameState(GameState.MAIN_STATE);
             }
-        }, 0,  20);
+        }, 0, 20);
     }
 
     public int getTime() {

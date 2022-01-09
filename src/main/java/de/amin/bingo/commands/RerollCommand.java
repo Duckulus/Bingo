@@ -5,7 +5,9 @@ import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
+import de.amin.bingo.gamestates.impl.MainState;
 import de.amin.bingo.gamestates.impl.PreState;
+import de.amin.bingo.utils.Constants;
 import de.amin.bingo.utils.Localization;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -42,6 +44,11 @@ public class RerollCommand implements CommandExecutor {
             p.playSound(p.getLocation(), Sound.BLOCK_AMETHYST_CLUSTER_BREAK,1,1);
             p.sendMessage(Localization.get(p, "command.reroll.message"));
         });
+
+        if(gameStateManager.getCurrentGameState() instanceof MainState) {
+            ((MainState) gameStateManager.getCurrentGameState()).setTime(Constants.GAME_DURATION);
+        }
+
         game.createBoards();
         renderer.updateImages();
         return false;

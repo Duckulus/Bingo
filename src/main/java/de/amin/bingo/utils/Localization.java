@@ -23,7 +23,7 @@ public class Localization {
     public static void load() {
         //copy localization rescource bundle from jar into plugin data folder
         try {
-            copyFromJar("localization/", Paths.get("plugins/bingo/localization/"));
+            copyFromJar("localization/", Paths.get("plugins/Bingo/localization/"));
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }

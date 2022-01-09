@@ -1,0 +1,23 @@
+game:
+  prestate:
+    player_missing: "&cMɐᴉʇᴉuƃ ɟoɹ &e{0} dlɐʎǝɹ)s(&c!"
+    timer: "&b┴ɥǝ פɐɯǝ ʍᴉll sʇɐɹʇ ᴉu &e{0} sǝɔoup)s(&b!"
+  mainstate:
+    start: "&b┴ɥǝ פɐɯǝ ɥɐs sʇɐɹʇǝp˙ פoop ˥nɔʞ¡"
+    itemfound: "&e{0} ɟonup ɐu ᴉʇǝɯ¡ &8[{1}/{2}]"
+    win: "&9qINפO¡ &6{0} &9ʍou ʇɥǝ ƃɐɯǝ"
+    end: "&6┴ɥǝ פɐɯǝ ʍᴉll ǝup ᴉu &c{0} Sǝɔoups&6!"
+    no_winner: "&cNo ouǝ ɟᴉuᴉsɥǝp' so ʇɥǝɹǝ ᴉs uo ʍᴉuuǝɹ¡"
+  endingstate:
+    server_restart: "&8┴ɥǝ פɐɯǝ ɥɐs ǝupǝp˙ ┴ɥǝ Sǝɹʌǝɹ ʍᴉll ɔlosǝ poʍu sɥoɹʇlʎ¡"
+command:
+  not_generated: "&c┴ɥǝ qoɐɹp ɥɐs uoʇ qǝǝu ƃǝuǝɹɐʇǝp ʎǝʇ¡"
+  forcestart:
+    message: "&8┴ɥǝ ƃɐɯǝ ɥɐs qǝǝu ɟoɹɔǝ-sʇɐɹʇǝp qʎ ɐu Odǝɹɐʇoɹ¡"
+    not_now: "&c┴ɥᴉs Ɔoɯɯɐup ɔɐuuoʇ qǝ nsǝp ɐʇ ʇɥᴉs Sʇɐƃǝ oɟ ʇɥǝ ƃɐɯǝ¡"
+    already_starting: "&c┴ɥǝ פɐɯǝ ᴉs ɐlɹǝɐpʎ sʇɐɹʇᴉuƃ¡"
+    not_enough_players: "&cNoʇ ǝuonƃɥ Ԁlɐʎǝɹs¡"
+  reroll:
+    message: "&8┴ɥǝ qoɐɹp ɥɐs qǝǝu ɹǝɹollǝp¡"
+  board:
+    message: "&8⅄onɹ qoɐɹp:"
