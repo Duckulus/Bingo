@@ -13,6 +13,8 @@ import fr.minuskube.inv.InventoryManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -52,6 +54,15 @@ public final class BingoPlugin extends JavaPlugin {
 
         registerListeners(getServer().getPluginManager(), gameStateManager);
         registerCommands(gameStateManager, game, renderer);
+
+        File propertiesFile = new File(Bukkit.getWorldContainer(), "server.properties");
+        try (FileInputStream stream = new FileInputStream(propertiesFile)) {
+            Properties properties = new Properties();
+            properties.load(stream);
+            Bukkit.getWorld(properties.getProperty("level-name")).setGameRule(GameRule.KEEP_INVENTORY, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -62,7 +73,6 @@ public final class BingoPlugin extends JavaPlugin {
     private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager) {
         pluginManager.registerEvents(new DamageListener(gameStateManager), this);
         pluginManager.registerEvents(new ConnectionListener(gameStateManager, this), this);
-        pluginManager.registerEvents(new DeathListener(), this);
         pluginManager.registerEvents(new DropListener(gameStateManager), this);
         pluginManager.registerEvents(new PlayerInteractListener(gameStateManager),this);
     }
@@ -91,6 +101,8 @@ public final class BingoPlugin extends JavaPlugin {
             new File(world, "playerdata").mkdirs();
             new File(world, "poi").mkdirs();
             new File(world, "region").mkdirs();
+
+            Bukkit.getWorld(properties.getProperty("level-name")).setGameRule(GameRule.KEEP_INVENTORY, true);
 
         } catch (IOException e) {
             e.printStackTrace();
