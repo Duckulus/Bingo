@@ -8,10 +8,7 @@ import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.utils.Constants;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class BingoGame {
 
@@ -19,10 +16,12 @@ public class BingoGame {
     private HashMap<UUID, BingoBoard> boards;
     BingoMaterial[] items = new BingoMaterial[Constants.BOARD_SIZE];
     private BoardRenderer renderer;
+    private final List<UUID> rejoinPlayer;
 
     public BingoGame(BingoPlugin plugin) {
         this.plugin = plugin;
-        boards = new HashMap<>();
+        this.boards = new HashMap<>();
+        this.rejoinPlayer = new ArrayList<>();
     }
 
     public void createBoards() {
@@ -84,4 +83,7 @@ public class BingoGame {
         return BingoMaterial.values()[new Random().nextInt(BingoMaterial.values().length)];
     }
 
+    public List<UUID> getRejoinPlayer() {
+        return rejoinPlayer;
+    }
 }

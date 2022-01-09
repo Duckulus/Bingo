@@ -1,6 +1,7 @@
 package de.amin.bingo.listeners;
 
 import de.amin.bingo.BingoPlugin;
+import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.gamestates.impl.MainState;
 import de.amin.bingo.gamestates.impl.PreState;
@@ -15,20 +16,29 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLocaleChangeEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class ConnectionListener implements Listener {
 
     private final GameStateManager gameStateManager;
     private final BingoPlugin plugin;
+    private final BingoGame game;
 
-    public ConnectionListener(GameStateManager gameStateManager, BingoPlugin plugin) {
+    public ConnectionListener(GameStateManager gameStateManager, BingoPlugin plugin, BingoGame game) {
         this.gameStateManager = gameStateManager;
         this.plugin = plugin;
+        this.game = game;
     }
 
     @EventHandler
     public void onConnect(AsyncPlayerPreLoginEvent event) {
-        if (!(gameStateManager.getCurrentGameState() instanceof PreState)) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.RED + "This Game has already started!");
+        if (!(this.gameStateManager.getCurrentGameState() instanceof PreState)) {
+            if(!this.game.getRejoinPlayer().contains(event.getUniqueId())){
+                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.RED + "This Game has already started!");
+            }
+
         }
     }
 
@@ -44,8 +54,11 @@ public class ConnectionListener implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
+        if (!(gameStateManager.getCurrentGameState() instanceof PreState)) {
+            this.game.getRejoinPlayer().add(event.getPlayer().getUniqueId());
+        }
         if (gameStateManager.getCurrentGameState() instanceof MainState && plugin.getServer().getOnlinePlayers().size() == 1) {
-            plugin.getServer().shutdown();
+            this.plugin.getServer().shutdown();
         }
 
     }
