@@ -1,6 +1,6 @@
 game:
   prestate:
-    player_missing: "&Warte auf &e{0} weitere Spieler&c!"
+    player_missing: "&cWarte auf &e{0} weitere Spieler&c!"
     timer: "&bDas Spiel startet in &e{0} Sekunden&b!"
   mainstate:
     start: "&bDas Spiel hat begonnen, Viel Glück!"
