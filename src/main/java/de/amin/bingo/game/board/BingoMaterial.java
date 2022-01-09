@@ -1,6 +1,7 @@
 package de.amin.bingo.game.board;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 
 
 public enum BingoMaterial {
@@ -26,7 +27,6 @@ public enum BingoMaterial {
     BLACK_DYE("black dye", Material.BLACK_DYE),
     BLAZE_POWDER("blaze powder", Material.BLAZE_POWDER),
     BLAZE_ROD("blaze rod", Material.BLAZE_ROD),
-    BLUE_CANDLE("blue candle", Material.BLUE_CANDLE),
     BLUE_DYE("blue dye", Material.BLUE_DYE),
     BONE("bone", Material.BONE),
     BONE_MEAL("bone meal", Material.BONE_MEAL),
@@ -36,13 +36,11 @@ public enum BingoMaterial {
     BREAD("bread", Material.BREAD),
     BREWING_STAND("brewing stand", Material.BREWING_STAND),
     BRICK("brick", Material.BRICK),
-    BROWN_CANDLE("brown candle", Material.BROWN_CANDLE),
     BROWN_DYE("brown dye", Material.BROWN_DYE),
     BUCKET("bucket", Material.BUCKET),
     BUNDLE("bundle", Material.BUNDLE),
     CAKE("cake", Material.CAKE),
     CAMPFIRE("campfire", Material.CAMPFIRE),
-    CANDLE("candle", Material.CANDLE),
     CARROT("carrot", Material.CARROT),
     CARROT_ON_A_STICK("carrot on a stick", Material.CARROT_ON_A_STICK),
     CAULDRON("cauldron", Material.CAULDRON),
@@ -73,7 +71,6 @@ public enum BingoMaterial {
     COPPER_INGOT("copper ingot", Material.COPPER_INGOT),
     CRIMSON_DOOR("crimson door", Material.CRIMSON_DOOR),
     CRIMSON_SIGN("crimson sign", Material.CRIMSON_SIGN),
-    CYAN_CANDLE("cyan candle", Material.CYAN_CANDLE),
     CYAN_DYE("cyan dye", Material.CYAN_DYE),
     DARK_OAK_BOAT("dark oak boat", Material.DARK_OAK_BOAT),
     DARK_OAK_DOOR("dark oak door", Material.DARK_OAK_DOOR),
@@ -127,9 +124,7 @@ public enum BingoMaterial {
     GOLDEN_SWORD("golden sword", Material.GOLDEN_SWORD),
     GOLD_INGOT("gold ingot", Material.GOLD_INGOT),
     GOLD_NUGGET("gold nugget", Material.GOLD_NUGGET),
-    GRAY_CANDLE("gray candle", Material.GRAY_CANDLE),
     GRAY_DYE("gray dye", Material.GRAY_DYE),
-    GREEN_CANDLE("green candle", Material.GREEN_CANDLE),
     GREEN_DYE("green dye", Material.GREEN_DYE),
     GUNPOWDER("gunpowder", Material.GUNPOWDER),
     HEART_OF_THE_SEA("heart of the sea", Material.HEART_OF_THE_SEA),
@@ -162,14 +157,10 @@ public enum BingoMaterial {
     LAVA_BUCKET("lava bucket", Material.LAVA_BUCKET),
     LEAD("lead", Material.LEAD),
     LEATHER("leather", Material.LEATHER),
-    LIGHT_BLUE_CANDLE("light blue candle", Material.LIGHT_BLUE_CANDLE),
     LIGHT_BLUE_DYE("light blue dye", Material.LIGHT_BLUE_DYE),
-    LIGHT_GRAY_CANDLE("light gray candle", Material.LIGHT_GRAY_CANDLE),
     LIGHT_GRAY_DYE("light gray dye", Material.LIGHT_GRAY_DYE),
-    LIME_CANDLE("lime candle", Material.LIME_CANDLE),
     LIME_DYE("lime dye", Material.LIME_DYE),
     LINGERING_POTION("lingering potion", Material.LINGERING_POTION),
-    MAGENTA_CANDLE("magenta candle", Material.MAGENTA_CANDLE),
     MAGENTA_DYE("magenta dye", Material.MAGENTA_DYE),
     MAGMA_CREAM("magma cream", Material.MAGMA_CREAM),
     MAP("map", Material.MAP),
@@ -188,12 +179,10 @@ public enum BingoMaterial {
     OAK_BOAT("oak boat", Material.OAK_BOAT),
     OAK_DOOR("oak door", Material.OAK_DOOR),
     OAK_SIGN("oak sign", Material.OAK_SIGN),
-    ORANGE_CANDLE("orange candle", Material.ORANGE_CANDLE),
     ORANGE_DYE("orange dye", Material.ORANGE_DYE),
     PAINTING("painting", Material.PAINTING),
     PAPER("paper", Material.PAPER),
     PHANTOM_MEMBRANE("phantom membrane", Material.PHANTOM_MEMBRANE),
-    PINK_CANDLE("pink candle", Material.PINK_CANDLE),
     PINK_DYE("pink dye", Material.PINK_DYE),
     POINTED_DRIPSTONE("pointed dripstone", Material.POINTED_DRIPSTONE),
     POISONOUS_POTATO("poisonous potato", Material.POISONOUS_POTATO),
@@ -207,7 +196,6 @@ public enum BingoMaterial {
     PUFFERFISH_BUCKET("pufferfish bucket", Material.PUFFERFISH_BUCKET),
     PUMPKIN_PIE("pumpkin pie", Material.PUMPKIN_PIE),
     PUMPKIN_SEEDS("pumpkin seeds", Material.PUMPKIN_SEEDS),
-    PURPLE_CANDLE("purple candle", Material.PURPLE_CANDLE),
     PURPLE_DYE("purple dye", Material.PURPLE_DYE),
     QUARTZ("quartz", Material.QUARTZ),
     RABBIT("rabbit", Material.RABBIT),
@@ -218,7 +206,6 @@ public enum BingoMaterial {
     RAW_GOLD("raw gold", Material.RAW_GOLD),
     RAW_IRON("raw iron", Material.RAW_IRON),
     REDSTONE("redstone", Material.REDSTONE),
-    RED_CANDLE("red candle", Material.RED_CANDLE),
     RED_DYE("red dye", Material.RED_DYE),
     REPEATER("repeater", Material.REPEATER),
     ROTTEN_FLESH("rotten flesh", Material.ROTTEN_FLESH),
@@ -265,7 +252,6 @@ public enum BingoMaterial {
     WATER_BUCKET("water bucket", Material.WATER_BUCKET),
     WHEAT("wheat", Material.WHEAT),
     WHEAT_SEEDS("wheat seeds", Material.WHEAT_SEEDS),
-    WHITE_CANDLE("white candle", Material.WHITE_CANDLE),
     WHITE_DYE("white dye", Material.WHITE_DYE),
     WOODEN_AXE("wooden axe", Material.WOODEN_AXE),
     WOODEN_HOE("wooden hoe", Material.WOODEN_HOE),
@@ -274,7 +260,6 @@ public enum BingoMaterial {
     WOODEN_SWORD("wooden sword", Material.WOODEN_SWORD),
     WRITABLE_BOOK("writable book", Material.WRITABLE_BOOK),
     WRITTEN_BOOK("written book", Material.WRITTEN_BOOK),
-    YELLOW_CANDLE("yellow candle", Material.YELLOW_CANDLE),
     YELLOW_DYE("yellow dye", Material.YELLOW_DYE);
 
 
