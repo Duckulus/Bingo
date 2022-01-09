@@ -11,8 +11,12 @@ game:
   endingstate:
     server_restart: "&8The Game has ended. The Server will close down shortly!"
 command:
+  not_generated: "&cThe board has not been generated yet!"
   forcestart:
     message: "&8The game has been force-started by an Operator!"
+    not_now: "&cThis Command cannot be used at this Stage of the game!"
+    already_starting: "&cThe Game is already starting!"
+    not_enough_players: "&cNot enough Players!"
   reroll:
     message: "&8The board has been rerolled!"
   board:

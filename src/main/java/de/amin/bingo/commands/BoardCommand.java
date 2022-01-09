@@ -7,10 +7,12 @@ import de.amin.bingo.game.board.BingoItem;
 import de.amin.bingo.gamestates.impl.PreState;
 import de.amin.bingo.utils.Localization;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class BoardCommand implements CommandExecutor {
 
@@ -28,7 +30,7 @@ public class BoardCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         if(gameStateManager.getCurrentGameState() instanceof PreState) {
-            player.sendMessage(ChatColor.RED + "The board has not been generated yet!");
+            player.sendMessage(Localization.get(player, "command.not_generated"));
         }
 
         BingoBoard board = game.getBoard(player);

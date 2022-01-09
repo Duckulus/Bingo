@@ -12,6 +12,7 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class RerollCommand implements CommandExecutor {
 
@@ -29,14 +30,17 @@ public class RerollCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if(!(sender instanceof Player))return false;
+        Player player = (Player) sender;
+
         if(gameStateManager.getCurrentGameState() instanceof PreState) {
-            sender.sendMessage(ChatColor.RED + "The board has not been generated yet!");
+            player.sendMessage(Localization.get(player, "command.not_generated"));
             return false;
         }
 
-        plugin.getServer().getOnlinePlayers().forEach(player -> {
-            player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_CLUSTER_BREAK,1,1);
-            player.sendMessage(Localization.get(player, "command.reroll.message"));
+        plugin.getServer().getOnlinePlayers().forEach(p -> {
+            p.playSound(p.getLocation(), Sound.BLOCK_AMETHYST_CLUSTER_BREAK,1,1);
+            p.sendMessage(Localization.get(p, "command.reroll.message"));
         });
         game.createBoards();
         renderer.updateImages();

@@ -11,9 +11,13 @@ game:
   endingstate:
     server_restart: "&8Das Spiel wurde beendet. Der Server startet in Kürze neu."
 command:
+  not_generated: "&cDas Brett wurde noch nicht generiert!"
   forcestart:
-    message: "&8Der Spielstart wurde von einem Operator erzwungen."
+    message: "&8Der Spielstart wurde durch einen Operator erzwungen!"
+    not_now: "&cDiesen Command kannst du jetzt nicht benutzen!"
+    already_starting: "&cDas spiel startet bereits!"
+    not_enough_players: "&cNicht genug Spieler!"
   reroll:
-    message: "&8Das Spielbrett wurde neu gemischt"
+    message: "&8Das Brett wurde neu gemischt!"
   board:
-    message: "&8Dein Spielbrett:"
+    message: "&8Dein Bingobrett:"
