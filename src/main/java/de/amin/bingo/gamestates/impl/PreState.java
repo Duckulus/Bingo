@@ -4,10 +4,12 @@ import de.amin.bingo.BingoPlugin;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.ItemBuilder;
 import de.amin.bingo.utils.Localization;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
@@ -35,6 +37,9 @@ public class PreState extends GameState {
             player.setFoodLevel(100);
             player.getInventory().clear();
             player.teleport(player.getWorld().getHighestBlockAt(ThreadLocalRandom.current().nextInt(-25, 25), ThreadLocalRandom.current().nextInt(-25, 25)).getLocation());
+            player.getInventory().setItem(0, new ItemBuilder(Material.ORANGE_BED).setName(Localization.get(
+                    player, "team.item_name"
+            )).toItemStack());
         });
         startTimer();
     }

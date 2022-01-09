@@ -40,6 +40,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <outputFile>C:\Users\aminh\Desktop\paper-1.18.1\plugins\Bingo-1.1.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -71,11 +72,6 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
-        </dependency>
-        <dependency>
-            <groupId>fr.minuskube.inv</groupId>
-            <artifactId>smart-invs</artifactId>
-            <version>1.2.7</version>
         </dependency>
     </dependencies>
 </project>

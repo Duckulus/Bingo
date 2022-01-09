@@ -8,8 +8,9 @@ import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.listeners.*;
+import de.amin.bingo.team.TeamManager;
 import de.amin.bingo.utils.Localization;
-import fr.minuskube.inv.InventoryManager;
+import de.amin.bingo.utils.TeamGuiListener;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -45,12 +46,9 @@ public final class BingoPlugin extends JavaPlugin {
         GameStateManager gameStateManager = new GameStateManager(this, game, renderer);
         gameStateManager.setGameState(GameState.PRE_STATE);
 
-        //Initialization of InventoryManager for SmartInvs
-        InventoryManager inventoryManager = new InventoryManager(this);
-        inventoryManager.init();
+        TeamManager  teamManager= new TeamManager();
 
-
-        registerListeners(getServer().getPluginManager(), gameStateManager);
+        registerListeners(getServer().getPluginManager(), gameStateManager, teamManager);
         registerCommands(gameStateManager, game, renderer);
     }
 
@@ -59,12 +57,13 @@ public final class BingoPlugin extends JavaPlugin {
 
     }
 
-    private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager) {
+    private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager, TeamManager teamManager) {
         pluginManager.registerEvents(new DamageListener(gameStateManager), this);
         pluginManager.registerEvents(new ConnectionListener(gameStateManager, this), this);
         pluginManager.registerEvents(new DeathListener(), this);
         pluginManager.registerEvents(new DropListener(gameStateManager), this);
-        pluginManager.registerEvents(new PlayerInteractListener(gameStateManager),this);
+        pluginManager.registerEvents(new PlayerInteractListener(gameStateManager, teamManager),this);
+        pluginManager.registerEvents(new TeamGuiListener(teamManager), this);
     }
 
     private void registerCommands(GameStateManager gameStateManager, BingoGame game, BoardRenderer renderer) {
