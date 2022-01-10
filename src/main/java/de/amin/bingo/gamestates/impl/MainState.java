@@ -25,6 +25,7 @@ public class MainState extends GameState {
 
     private int time = Constants.GAME_DURATION;
     private BukkitTask timerTask;
+    private BukkitTask gameLoop;
     private final BingoPlugin plugin;
     private final GameStateManager gameStateManager;
     private final BingoGame game;
@@ -75,28 +76,42 @@ public class MainState extends GameState {
     @Override
     public void end() {
         timerTask.cancel();
+        gameLoop.cancel();
     }
 
     private void startTimer() {
+        gameLoop = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
+            plugin.getServer().getOnlinePlayers().forEach(player -> {
+                //check for all players if they have a new item from the board
+                for (BingoItem item : game.getBoard(teamManager.getTeam(player)).getItems()) {
+                    if (!item.isFound()) {
+                        for (ItemStack content : player.getInventory().getContents()) {
+                            if (content != null && content.getType().equals(item.getMaterial())) {
+                                item.setFound(true);
+                                plugin.getServer().broadcastMessage(Localization.get(player, "game.mainstate.itemfound", teamManager.getTeam(player).getColor() + player.getName(),
+                                        String.valueOf(game.getBoard(teamManager.getTeam(player)).getFoundItems()),
+                                        String.valueOf(Constants.BOARD_SIZE)));
+                                plugin.getServer().getOnlinePlayers().forEach(all -> all.playSound(all.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1, 1));
+                            }
+                        }
+                    }
+                }
+            });
+
+            teamManager.getTeams().forEach(team -> {
+                if (game.checkWin(team)) {
+                    Bukkit.getOnlinePlayers().forEach(player -> {
+                        player.sendMessage(Localization.get(player, "game.mainstate.win", BingoTeam.get(team.getName()).getLocalizedName(player)));
+                    });
+                    gameStateManager.setGameState(GameState.END_STATE);
+                }
+            });
+        }, 0, 5);
+
         timerTask = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
             if (time > 0) {
                 plugin.getServer().getOnlinePlayers().forEach(player -> {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.GREEN + TimeUtils.formatTime(time)).create());
-
-                    //check for all players if they have a new item from the board
-                    for (BingoItem item : game.getBoard(teamManager.getTeam(player)).getItems()) {
-                        if (!item.isFound()) {
-                            for (ItemStack content : player.getInventory().getContents()) {
-                                if (content != null && content.getType().equals(item.getMaterial())) {
-                                    item.setFound(true);
-                                    plugin.getServer().broadcastMessage(Localization.get(player, "game.mainstate.itemfound", teamManager.getTeam(player).getColor() + player.getName(),
-                                            String.valueOf(game.getBoard(teamManager.getTeam(player)).getFoundItems()),
-                                            String.valueOf(Constants.BOARD_SIZE)));
-                                    plugin.getServer().getOnlinePlayers().forEach(all -> all.playSound(all.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1, 1));
-                                }
-                            }
-                        }
-                    }
 
                     switch (time) {
                         case 30:
@@ -112,19 +127,13 @@ public class MainState extends GameState {
                     }
                 });
 
-                teamManager.getTeams().forEach(team -> {
-                    if (game.checkWin(team)) {
-                        Bukkit.getOnlinePlayers().forEach(player -> {
-                            player.sendMessage(Localization.get(player, "game.mainstate.win", BingoTeam.get(team.getName()).getLocalizedName(player)));
-                        });
-                        gameStateManager.setGameState(GameState.END_STATE);
-                    }
-                });
+
                 time--;
             } else {
                 plugin.getServer().getOnlinePlayers().forEach(player -> {
                     player.sendMessage(Localization.get(player, "game.mainstate.no_winner"));
                 });
+                gameLoop.cancel();
                 gameStateManager.setGameState(GameState.END_STATE);
             }
         }, 0, 20);
