@@ -54,6 +54,8 @@ public final class BingoPlugin extends JavaPlugin {
 
         registerListeners(getServer().getPluginManager(), gameStateManager, teamManager, game);
         registerCommands(gameStateManager, game, renderer, teamManager);
+
+        Bukkit.getWorlds().forEach(world -> world.setGameRule(GameRule.KEEP_INVENTORY, true));
     }
 
     @Override
@@ -94,8 +96,6 @@ public final class BingoPlugin extends JavaPlugin {
             new File(world, "playerdata").mkdirs();
             new File(world, "poi").mkdirs();
             new File(world, "region").mkdirs();
-
-            Bukkit.getWorld(properties.getProperty("level-name")).setGameRule(GameRule.KEEP_INVENTORY, true);
 
         } catch (IOException e) {
             e.printStackTrace();
