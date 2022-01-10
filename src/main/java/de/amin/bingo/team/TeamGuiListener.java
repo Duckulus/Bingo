@@ -19,7 +19,7 @@ public class TeamGuiListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getCurrentItem() == null) return;
-        if (!event.getView().getTitle().equals(TeamGui.GUI_TITLE));
+        if (!event.getView().getTitle().equals(TeamGui.GUI_TITLE))return;
         event.setCancelled(true);
         Player player = (Player) event.getWhoClicked();
 

@@ -26,7 +26,7 @@ public class ForceStart implements CommandExecutor {
         if(!(sender instanceof Player))return false;
         Player player = (Player) sender;
         if(!(gameStateManager.getCurrentGameState() instanceof PreState)) {
-            sender.sendMessage(Localization.get(player,"command.forcestart.not_now"));
+            sender.sendMessage(Localization.get(player,"command.not_now"));
             return false;
         }
 

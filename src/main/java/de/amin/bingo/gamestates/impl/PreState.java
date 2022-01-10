@@ -14,8 +14,6 @@ import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class PreState extends GameState {
 
     private final BingoPlugin plugin;

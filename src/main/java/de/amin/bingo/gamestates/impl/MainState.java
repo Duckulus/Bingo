@@ -20,8 +20,6 @@ import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class MainState extends GameState {
 
     private int time = Constants.GAME_DURATION;
@@ -58,7 +56,7 @@ public class MainState extends GameState {
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
             player.sendMessage(Localization.get(player, "game.mainstate.start"));
 
-            if(teamManager.getTeam(player)==null) {
+            if (teamManager.getTeam(player) == null) {
                 BingoTeam bingoTeam = teamManager.addToSmallest(player);
                 player.sendMessage(Localization.get(player, "team.auto_assign", bingoTeam.getLocalizedName(player)));
             }
@@ -100,7 +98,13 @@ public class MainState extends GameState {
                     }
 
                     switch (time) {
-                        case 30: case 15: case 10: case 5: case 3: case 2: case 1: {
+                        case 30:
+                        case 15:
+                        case 10:
+                        case 5:
+                        case 3:
+                        case 2:
+                        case 1: {
                             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1, 1);
                             player.sendMessage(Localization.get(player, "game.mainstate.end", String.valueOf(time)));
                         }
@@ -108,9 +112,9 @@ public class MainState extends GameState {
                 });
 
                 teamManager.getTeams().forEach(team -> {
-                    if(game.checkWin(team)) {
+                    if (game.checkWin(team)) {
                         Bukkit.getOnlinePlayers().forEach(player -> {
-                            player.sendMessage(Localization.get(player,"game.mainstate.win", BingoTeam.get(team.getName()).getLocalizedName(player)));
+                            player.sendMessage(Localization.get(player, "game.mainstate.win", BingoTeam.get(team.getName()).getLocalizedName(player)));
                         });
                         gameStateManager.setGameState(GameState.END_STATE);
                     }

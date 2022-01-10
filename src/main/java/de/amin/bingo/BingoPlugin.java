@@ -75,7 +75,7 @@ public final class BingoPlugin extends JavaPlugin {
         getCommand("forcestart").setExecutor(new ForceStart(this, gameStateManager));
         getCommand("board").setExecutor(new BoardCommand(game, gameStateManager, teamManager));
         getCommand("reroll").setExecutor(new RerollCommand(this, game, renderer, gameStateManager));
-        getCommand("backpack").setExecutor(new BackPackCommand(teamManager));
+        getCommand("backpack").setExecutor(new BackPackCommand(teamManager, gameStateManager));
     }
 
     private void resetWorld() {
