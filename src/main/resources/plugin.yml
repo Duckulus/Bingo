@@ -20,3 +20,7 @@ commands:
       - rr
     description: rerolls all boards
     permission: bingo.reroll
+  backpack:
+    aliases:
+      - bp
+    description: opens the teams backpack

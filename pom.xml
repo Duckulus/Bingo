@@ -40,7 +40,6 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputFile>C:\Users\aminh\Desktop\paper-1.18.1\plugins\Bingo-1.1.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
