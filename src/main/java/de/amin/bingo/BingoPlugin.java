@@ -49,13 +49,10 @@ public final class BingoPlugin extends JavaPlugin {
         GameStateManager gameStateManager = new GameStateManager(this, game, renderer, teamManager);
         gameStateManager.setGameState(GameState.PRE_STATE);
 
-        //Initialization of InventoryManager for SmartInvs
-        InventoryManager inventoryManager = new InventoryManager(this);
-        inventoryManager.init();
 
 
-        registerListeners(getServer().getPluginManager(), gameStateManager);
-        registerCommands(gameStateManager, game, renderer);
+        registerListeners(getServer().getPluginManager(), gameStateManager, teamManager, game);
+        registerCommands(gameStateManager, game, renderer, teamManager);
     }
 
     @Override
@@ -63,7 +60,7 @@ public final class BingoPlugin extends JavaPlugin {
 
     }
 
-    private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager) {
+    private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager, TeamManager teamManager, BingoGame game) {
         pluginManager.registerEvents(new DamageListener(gameStateManager), this);
         pluginManager.registerEvents(new ConnectionListener(gameStateManager, this, game), this);
         pluginManager.registerEvents(new DropListener(gameStateManager), this);

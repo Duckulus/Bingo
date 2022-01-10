@@ -16,12 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLocaleChangeEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class ConnectionListener implements Listener {
 
@@ -38,7 +33,7 @@ public class ConnectionListener implements Listener {
     @EventHandler
     public void onConnect(AsyncPlayerPreLoginEvent event) {
         if (!(this.gameStateManager.getCurrentGameState() instanceof PreState)) {
-            if(!this.game.getRejoinPlayer().contains(event.getUniqueId())){
+            if (!this.game.getRejoinPlayer().contains(event.getUniqueId())) {
                 event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.RED + "This Game has already started!");
             }
 
@@ -47,15 +42,18 @@ public class ConnectionListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        player.getInventory().clear();
-        player.setGameMode(GameMode.SURVIVAL);
-        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-        player.setFoodLevel(100);
-        player.getInventory().clear();
-        player.getInventory().setItem(0, new ItemBuilder(Material.ORANGE_BED).setName(Localization.get(
-                player, "team.item_name"
-        )).toItemStack());
+        if(gameStateManager.getCurrentGameState() instanceof PreState) {
+            Player player = event.getPlayer();
+            player.getInventory().clear();
+            player.setGameMode(GameMode.SURVIVAL);
+            player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+            player.setFoodLevel(100);
+            player.getInventory().clear();
+            player.getInventory().setItem(0, new ItemBuilder(Material.ORANGE_BED).setName(Localization.get(
+                    player, "team.item_name"
+            )).toItemStack());
+        }
+
     }
 
     @EventHandler
