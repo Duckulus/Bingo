@@ -86,7 +86,7 @@ public class MainState extends GameState {
     private void startTimer() {
 
         Scoreboard scoreboard = plugin.getServer().getScoreboardManager().getMainScoreboard();
-        Objective score = scoreboard.getObjective(DisplaySlot.PLAYER_LIST) == null ? scoreboard.registerNewObjective("score","","", RenderType.INTEGER) : scoreboard.getObjective(DisplaySlot.PLAYER_LIST);
+        Objective score = scoreboard.getObjective(DisplaySlot.PLAYER_LIST) == null ? scoreboard.registerNewObjective("score","moneyboy","swag", RenderType.INTEGER) : scoreboard.getObjective(DisplaySlot.PLAYER_LIST);
         score.setDisplaySlot(DisplaySlot.PLAYER_LIST);
 
         gameLoop = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
