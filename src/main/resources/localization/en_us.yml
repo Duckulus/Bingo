@@ -33,3 +33,4 @@ team:
   item_name: "&bTeam Picker"
   added: "&eYou have been added to that Team!"
   auto_assign: "&cYou have been automatically assigned to Team {0}"
+  full: "§cThat Team is full. Please choose another one!"
