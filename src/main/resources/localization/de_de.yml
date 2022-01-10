@@ -12,12 +12,26 @@ game:
     server_restart: "&8Das Spiel wurde beendet. Der Server startet in Kürze neu."
 command:
   not_generated: "&cDas Brett wurde noch nicht generiert!"
+  not_now: "&cDiesen Command kannst du jetzt nicht benutzen!"
   forcestart:
     message: "&8Der Spielstart wurde durch einen Operator erzwungen!"
-    not_now: "&cDiesen Command kannst du jetzt nicht benutzen!"
     already_starting: "&cDas spiel startet bereits!"
     not_enough_players: "&cNicht genug Spieler!"
   reroll:
     message: "&8Das Brett wurde neu gemischt!"
   board:
     message: "&8Dein Bingobrett:"
+team:
+  blue: "Blau"
+  red: "Rot"
+  green: "Grün"
+  orange: "Orange"
+  cyan: "Türkis"
+  purple: "Lila"
+  pink: "Pink"
+  black: "Schwarz"
+  item_name: "&bTeam Auswahl"
+  added: "&eDu wurdest zum Team hinzugefügt!"
+  auto_assign: "&cDu wurdest Automatisch zu Team {0} &czugewiesen."
+  full: "&cDieses Team ist voll, bitte wähle ein anderes"
+  no_team: "&cDu musst in einem Team sein um diesen Befehl zu benutzen"
