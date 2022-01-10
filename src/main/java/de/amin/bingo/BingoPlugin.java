@@ -15,6 +15,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameRule;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,7 +58,8 @@ public final class BingoPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        getServer().getScoreboardManager().getMainScoreboard().getObjective(DisplaySlot.PLAYER_LIST).unregister();
+        getServer().getScoreboardManager().getMainScoreboard().clearSlot(DisplaySlot.PLAYER_LIST);
     }
 
     private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager, TeamManager teamManager, BingoGame game) {

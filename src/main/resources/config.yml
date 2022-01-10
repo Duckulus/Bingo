@@ -16,3 +16,5 @@ gameDuration: 1800
 defaultLocale: "en_us"
 # Wether the size of teams should be limited based on the amount of players | DEFAULT=true
 teamlimit: true
+# If Pvp is enabled or not
+pvp: false

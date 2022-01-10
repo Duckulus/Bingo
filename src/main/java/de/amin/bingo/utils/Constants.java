@@ -14,5 +14,6 @@ public class Constants {
     public static int GAME_DURATION = config.getInt("gameDuration");
     public static String DEFAULT_LOCALE = config.getString("defaultLocale");
     public static boolean TEAM_LIMIT = config.getBoolean("teamlimit");
+    public static boolean PVP = config.getBoolean("pvp");
     public static int BOARD_SIZE = 16;
 }

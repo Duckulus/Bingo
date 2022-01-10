@@ -2,8 +2,11 @@ package de.amin.bingo.listeners;
 
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.gamestates.impl.MainState;
+import de.amin.bingo.utils.Constants;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -20,6 +23,15 @@ public class DamageListener implements Listener {
     public void onEntityDamage(EntityDamageEvent event) {
         if (!(gameStateManager.getCurrentGameState() instanceof MainState)) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if(!Constants.PVP) {
+            if(event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
+                event.setCancelled(true);
+            }
         }
     }
 

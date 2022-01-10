@@ -20,6 +20,10 @@ import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.RenderType;
+import org.bukkit.scoreboard.Scoreboard;
 
 public class MainState extends GameState {
 
@@ -80,8 +84,16 @@ public class MainState extends GameState {
     }
 
     private void startTimer() {
+
+        Scoreboard scoreboard = plugin.getServer().getScoreboardManager().getMainScoreboard();
+        Objective score = scoreboard.getObjective(DisplaySlot.PLAYER_LIST) == null ? scoreboard.registerNewObjective("score","","", RenderType.INTEGER) : scoreboard.getObjective(DisplaySlot.PLAYER_LIST);
+        score.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+
         gameLoop = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
             plugin.getServer().getOnlinePlayers().forEach(player -> {
+
+                score.getScore(player.getName()).setScore(game.getBoard(teamManager.getTeam(player)).getFoundItems());
+
                 //check for all players if they have a new item from the board
                 for (BingoItem item : game.getBoard(teamManager.getTeam(player)).getItems()) {
                     if (!item.isFound()) {
@@ -103,6 +115,7 @@ public class MainState extends GameState {
                     Bukkit.getOnlinePlayers().forEach(player -> {
                         player.sendMessage(Localization.get(player, "game.mainstate.win", BingoTeam.get(team.getName()).getLocalizedName(player)));
                     });
+                    score.unregister();
                     gameStateManager.setGameState(GameState.END_STATE);
                 }
             });
@@ -134,6 +147,7 @@ public class MainState extends GameState {
                     player.sendMessage(Localization.get(player, "game.mainstate.no_winner"));
                 });
                 gameLoop.cancel();
+                score.unregister();
                 gameStateManager.setGameState(GameState.END_STATE);
             }
         }, 0, 20);
