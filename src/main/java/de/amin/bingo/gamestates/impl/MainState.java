@@ -19,11 +19,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
+import org.bukkit.scheduler.BukkitTask;
 
 public class MainState extends GameState {
 
     private int time = Constants.GAME_DURATION;
-    private int timerId;
+    private BukkitTask timerTask;
     private final BingoPlugin plugin;
     private final GameStateManager gameStateManager;
     private final BingoGame game;
@@ -73,11 +74,11 @@ public class MainState extends GameState {
 
     @Override
     public void end() {
-        plugin.getServer().getScheduler().cancelTask(timerId);
+        timerTask.cancel();
     }
 
     private void startTimer() {
-        timerId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+        timerTask = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
             if (time > 0) {
                 plugin.getServer().getOnlinePlayers().forEach(player -> {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.GREEN + TimeUtils.formatTime(time)).create());

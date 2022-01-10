@@ -8,18 +8,16 @@ import de.amin.bingo.utils.ItemBuilder;
 import de.amin.bingo.utils.Localization;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Server;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.scheduler.BukkitTask;
 
 public class PreState extends GameState {
 
     private final BingoPlugin plugin;
     private final GameStateManager gameStateManager;
     private int time = Constants.PRESTATE_TIME;
-    private int timerId;
+    private BukkitTask timerTask;
 
     public PreState(BingoPlugin plugin, GameStateManager gameStateManager) {
         this.plugin = plugin;
@@ -44,13 +42,13 @@ public class PreState extends GameState {
 
     @Override
     public void end() {
-        plugin.getServer().getScheduler().cancelTask(timerId);
+        timerTask.cancel();
     }
 
     private void startTimer() {
         Server server = plugin.getServer();
 
-        timerId = server.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+        timerTask = server.getScheduler().runTaskTimer(plugin, () -> {
             if (time > 0) {
                 if (server.getOnlinePlayers().size() >= Constants.MIN_PLAYERS) {
                     server.getOnlinePlayers().forEach(player -> {
