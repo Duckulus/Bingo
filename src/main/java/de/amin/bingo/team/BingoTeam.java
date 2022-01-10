@@ -5,6 +5,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 public enum BingoTeam {
     BLUE("blue", ChatColor.BLUE, Material.BLUE_CANDLE),
     RED("red", ChatColor.RED, Material.RED_CANDLE),
@@ -40,6 +42,10 @@ public enum BingoTeam {
     }
 
     public String getLocalizedName(Player player) {
-        return Localization.get(player, "team." + nameKey);
+        return color + Localization.get(player, "team." + nameKey);
+    }
+
+    public static BingoTeam get(String name) {
+        return Arrays.stream(BingoTeam.values()).filter(bingoTeam -> bingoTeam.getNameKey().equals(name)).findAny().get();
     }
 }

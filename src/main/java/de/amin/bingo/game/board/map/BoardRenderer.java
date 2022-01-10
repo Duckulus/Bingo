@@ -2,6 +2,7 @@ package de.amin.bingo.game.board.map;
 
 import de.amin.bingo.BingoPlugin;
 import de.amin.bingo.game.BingoGame;
+import de.amin.bingo.team.TeamManager;
 import de.amin.bingo.utils.Constants;
 import org.bukkit.entity.Player;
 import org.bukkit.map.MapCanvas;
@@ -11,17 +12,18 @@ import org.bukkit.map.MapView;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class BoardRenderer extends MapRenderer {
 
     private final BingoPlugin plugin;
+    private final TeamManager teamManager;
     private final BingoGame game;
     private Image[] images;
     private Image checkmark;
 
-    public BoardRenderer(BingoPlugin plugin, BingoGame game) {
+    public BoardRenderer(BingoPlugin plugin, TeamManager teamManager, BingoGame game) {
+        this.teamManager = teamManager;
         this.game = game;
         this.plugin = plugin;
         images = new Image[Constants.BOARD_SIZE];
@@ -70,7 +72,7 @@ public class BoardRenderer extends MapRenderer {
             canvas.drawImage(imagePositions[i][0], imagePositions[i][1], images[i]);
 
             //draw checkmark if item is already found
-            if (game.getBoard(player).getItems()[i].isFound()) {
+            if (game.getBoard(teamManager.getTeam(player)).getItems()[i].isFound()) {
                 canvas.drawImage(imagePositions[i][0], imagePositions[i][1], checkmark);
             }
         }

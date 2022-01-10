@@ -5,23 +5,24 @@ import de.amin.bingo.game.board.BingoBoard;
 import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.game.board.BingoItem;
 import de.amin.bingo.gamestates.impl.PreState;
+import de.amin.bingo.team.TeamManager;
 import de.amin.bingo.utils.Localization;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class BoardCommand implements CommandExecutor {
 
     private final BingoGame game;
     private final GameStateManager gameStateManager;
+    private final TeamManager teamManager;
 
-    public BoardCommand(BingoGame game, GameStateManager gameStateManager) {
+    public BoardCommand(BingoGame game, GameStateManager gameStateManager, TeamManager teamManager) {
         this.game = game;
         this.gameStateManager = gameStateManager;
+        this.teamManager = teamManager;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class BoardCommand implements CommandExecutor {
             player.sendMessage(Localization.get(player, "command.not_generated"));
         }
 
-        BingoBoard board = game.getBoard(player);
+        BingoBoard board = game.getBoard(teamManager.getTeam(player));
         if(board==null)return false;
 
         player.sendMessage(Localization.get(player, "command.board.message"));

@@ -10,7 +10,7 @@ import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.listeners.*;
 import de.amin.bingo.team.TeamManager;
 import de.amin.bingo.utils.Localization;
-import de.amin.bingo.utils.TeamGuiListener;
+import de.amin.bingo.team.TeamGuiListener;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,16 +40,16 @@ public final class BingoPlugin extends JavaPlugin {
 
         saveDefaultConfig();
 
-        BingoGame game = new BingoGame(this);
-        BoardRenderer renderer = new BoardRenderer(this, game);
-
-        GameStateManager gameStateManager = new GameStateManager(this, game, renderer);
-        gameStateManager.setGameState(GameState.PRE_STATE);
-
         TeamManager  teamManager= new TeamManager();
 
+        BingoGame game = new BingoGame(this, teamManager);
+        BoardRenderer renderer = new BoardRenderer(this, teamManager, game);
+
+        GameStateManager gameStateManager = new GameStateManager(this, game, renderer, teamManager);
+        gameStateManager.setGameState(GameState.PRE_STATE);
+
         registerListeners(getServer().getPluginManager(), gameStateManager, teamManager);
-        registerCommands(gameStateManager, game, renderer);
+        registerCommands(gameStateManager, game, renderer, teamManager);
     }
 
     @Override
@@ -66,9 +66,9 @@ public final class BingoPlugin extends JavaPlugin {
         pluginManager.registerEvents(new TeamGuiListener(teamManager), this);
     }
 
-    private void registerCommands(GameStateManager gameStateManager, BingoGame game, BoardRenderer renderer) {
+    private void registerCommands(GameStateManager gameStateManager, BingoGame game, BoardRenderer renderer, TeamManager teamManager) {
         getCommand("forcestart").setExecutor(new ForceStart(this, gameStateManager));
-        getCommand("board").setExecutor(new BoardCommand(game, gameStateManager));
+        getCommand("board").setExecutor(new BoardCommand(game, gameStateManager, teamManager));
         getCommand("reroll").setExecutor(new RerollCommand(this, game, renderer, gameStateManager));
     }
 
