@@ -6,21 +6,24 @@ import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.gamestates.impl.EndState;
 import de.amin.bingo.gamestates.impl.MainState;
 import de.amin.bingo.gamestates.impl.PreState;
+import de.amin.bingo.team.TeamManager;
 
 public class GameStateManager {
 
     private GameState currentGameState;
     private final GameState[] gameStates;
     private final BoardRenderer renderer;
+    private final TeamManager teamManager;
 
-    public GameStateManager(BingoPlugin plugin, BingoGame game, BoardRenderer renderer) {
+    public GameStateManager(BingoPlugin plugin, BingoGame game, BoardRenderer renderer, TeamManager teamManager) {
+        this.teamManager = teamManager;
         currentGameState = null;
         this.renderer = renderer;
 
         //initialization of all GameStates insinde an Array
         gameStates = new GameState[3];
         gameStates[GameState.PRE_STATE] = new PreState(plugin, this);
-        gameStates[GameState.MAIN_STATE] = new MainState(plugin, this, game, renderer);
+        gameStates[GameState.MAIN_STATE] = new MainState(plugin, this, game, renderer, this.teamManager);
         gameStates[GameState.END_STATE] = new EndState(plugin);
     }
 

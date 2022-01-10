@@ -21,3 +21,16 @@ command:
     message: "&8The board has been rerolled!"
   board:
     message: "&8Your Board:"
+team:
+  blue: "Blue"
+  red: "Red"
+  green: "Green"
+  orange: "Orange"
+  cyan: "Cyan"
+  purple: "Purple"
+  pink: "Pink"
+  black: "Black"
+  item_name: "&bTeam Picker"
+  added: "&eYou have been added to that Team!"
+  auto_assign: "&cYou have been automatically assigned to Team {0}"
+  full: "§cThat Team is full. Please choose another one!"

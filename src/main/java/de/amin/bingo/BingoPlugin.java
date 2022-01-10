@@ -8,8 +8,9 @@ import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.listeners.*;
+import de.amin.bingo.team.TeamManager;
 import de.amin.bingo.utils.Localization;
-import fr.minuskube.inv.InventoryManager;
+import de.amin.bingo.team.TeamGuiListener;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,27 +41,21 @@ public final class BingoPlugin extends JavaPlugin {
 
         saveDefaultConfig();
 
-        BingoGame game = new BingoGame(this);
-        BoardRenderer renderer = new BoardRenderer(this, game);
+        TeamManager  teamManager= new TeamManager();
 
-        GameStateManager gameStateManager = new GameStateManager(this, game, renderer);
+        BingoGame game = new BingoGame(this, teamManager);
+        BoardRenderer renderer = new BoardRenderer(this, teamManager, game);
+
+        GameStateManager gameStateManager = new GameStateManager(this, game, renderer, teamManager);
         gameStateManager.setGameState(GameState.PRE_STATE);
 
         //Initialization of InventoryManager for SmartInvs
         InventoryManager inventoryManager = new InventoryManager(this);
         inventoryManager.init();
 
-        registerListeners(getServer().getPluginManager(), gameStateManager, game);
-        registerCommands(gameStateManager, game, renderer);
 
-        File propertiesFile = new File(Bukkit.getWorldContainer(), "server.properties");
-        try (FileInputStream stream = new FileInputStream(propertiesFile)) {
-            Properties properties = new Properties();
-            properties.load(stream);
-            Bukkit.getWorld(properties.getProperty("level-name")).setGameRule(GameRule.KEEP_INVENTORY, true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        registerListeners(getServer().getPluginManager(), gameStateManager);
+        registerCommands(gameStateManager, game, renderer);
     }
 
     @Override
@@ -68,16 +63,17 @@ public final class BingoPlugin extends JavaPlugin {
 
     }
 
-    private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager, BingoGame game) {
+    private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager) {
         pluginManager.registerEvents(new DamageListener(gameStateManager), this);
         pluginManager.registerEvents(new ConnectionListener(gameStateManager, this, game), this);
         pluginManager.registerEvents(new DropListener(gameStateManager), this);
-        pluginManager.registerEvents(new PlayerInteractListener(gameStateManager),this);
+        pluginManager.registerEvents(new PlayerInteractListener(gameStateManager, teamManager),this);
+        pluginManager.registerEvents(new TeamGuiListener(teamManager), this);
     }
 
-    private void registerCommands(GameStateManager gameStateManager, BingoGame game, BoardRenderer renderer) {
+    private void registerCommands(GameStateManager gameStateManager, BingoGame game, BoardRenderer renderer, TeamManager teamManager) {
         getCommand("forcestart").setExecutor(new ForceStart(this, gameStateManager));
-        getCommand("board").setExecutor(new BoardCommand(game, gameStateManager));
+        getCommand("board").setExecutor(new BoardCommand(game, gameStateManager, teamManager));
         getCommand("reroll").setExecutor(new RerollCommand(this, game, renderer, gameStateManager));
     }
 

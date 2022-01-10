@@ -5,8 +5,11 @@ import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.gamestates.impl.MainState;
 import de.amin.bingo.gamestates.impl.PreState;
+import de.amin.bingo.utils.ItemBuilder;
+import de.amin.bingo.utils.Localization;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -50,6 +53,9 @@ public class ConnectionListener implements Listener {
         player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
         player.setFoodLevel(100);
         player.getInventory().clear();
+        player.getInventory().setItem(0, new ItemBuilder(Material.ORANGE_BED).setName(Localization.get(
+                player, "team.item_name"
+        )).toItemStack());
     }
 
     @EventHandler
