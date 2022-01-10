@@ -58,8 +58,9 @@ public final class BingoPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getServer().getScoreboardManager().getMainScoreboard().getObjective(DisplaySlot.PLAYER_LIST).unregister();
-        getServer().getScoreboardManager().getMainScoreboard().clearSlot(DisplaySlot.PLAYER_LIST);
+        if(getServer().getScoreboardManager().getMainScoreboard().getObjective(DisplaySlot.PLAYER_LIST)!=null) {
+            getServer().getScoreboardManager().getMainScoreboard().getObjective(DisplaySlot.PLAYER_LIST).unregister();
+        }
     }
 
     private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager, TeamManager teamManager, BingoGame game) {
