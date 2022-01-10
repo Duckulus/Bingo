@@ -29,7 +29,7 @@ public class Localization {
         }
 
         //register configurations for language bundle files
-        if(new File(plugin.getDataFolder(), "localization").listFiles()==null) {
+        if (new File(plugin.getDataFolder(), "localization").listFiles() == null) {
             return;
         }
         for (File f : new File(plugin.getDataFolder(), "localization").listFiles()) {
@@ -59,11 +59,11 @@ public class Localization {
 
     public static void copyFromJar(String source, final Path target) throws URISyntaxException, IOException {
         URI resource = BingoPlugin.class.getResource("").toURI();
-        try {
-            FileSystem fileSystem = FileSystems.newFileSystem(
-                    resource,
-                    Collections.<String, String>emptyMap()
-            );
+        try (FileSystem fileSystem = FileSystems.newFileSystem(
+                resource,
+                Collections.<String, String>emptyMap()
+        )){
+
             final Path jarPath = fileSystem.getPath(source);
 
             Files.walkFileTree(jarPath, new SimpleFileVisitor<Path>() {
@@ -79,17 +79,17 @@ public class Localization {
 
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Files.copy(file, target.resolve(jarPath.relativize(file).toString()), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(file, target.resolve(jarPath.relativize(file).toString()), StandardCopyOption.COPY_ATTRIBUTES);
                     return FileVisitResult.CONTINUE;
                 }
 
             });
             plugin.getLogger().info("§aSuccesfully loaded Language bundles!");
-        } catch (FileSystemAlreadyExistsException e) {
+        } catch (FileAlreadyExistsException e) {
             plugin.getLogger().info("§cNot copying Language files because they already exist!");
+        } catch (FileSystemAlreadyExistsException e) {
+            e.printStackTrace();
         }
-
-
 
 
     }
