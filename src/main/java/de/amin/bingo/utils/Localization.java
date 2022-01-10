@@ -62,7 +62,7 @@ public class Localization {
         try (FileSystem fileSystem = FileSystems.newFileSystem(
                 resource,
                 Collections.<String, String>emptyMap()
-        )){
+        );){
 
             final Path jarPath = fileSystem.getPath(source);
 

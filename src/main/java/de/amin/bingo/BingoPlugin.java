@@ -1,9 +1,6 @@
 package de.amin.bingo;
 
-import de.amin.bingo.commands.BackPackCommand;
-import de.amin.bingo.commands.BoardCommand;
-import de.amin.bingo.commands.ForceStart;
-import de.amin.bingo.commands.RerollCommand;
+import de.amin.bingo.commands.*;
 import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.gamestates.GameState;
@@ -76,6 +73,7 @@ public final class BingoPlugin extends JavaPlugin {
         getCommand("board").setExecutor(new BoardCommand(game, gameStateManager, teamManager));
         getCommand("reroll").setExecutor(new RerollCommand(this, game, renderer, gameStateManager));
         getCommand("backpack").setExecutor(new BackPackCommand(teamManager, gameStateManager));
+        getCommand("teamchat").setExecutor(new TeamChatCommand(teamManager));
     }
 
     private void resetWorld() {

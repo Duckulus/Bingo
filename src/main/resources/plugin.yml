@@ -24,3 +24,8 @@ commands:
     aliases:
       - bp
     description: opens the teams backpack
+  teamchat:
+    aliases:
+      - tc
+      - teammsg
+    description: Sends a message to all players of your team

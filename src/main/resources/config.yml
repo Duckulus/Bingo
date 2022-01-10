@@ -14,3 +14,5 @@ forcestartTime: 15
 gameDuration: 1800
 # The Language that gets shown to players who use an unsupported Language | DEFAULT=en_us
 defaultLocale: "en_us"
+# Wether the size of teams should be limited based on the amount of players | DEFAULT=true
+teamlimit: true

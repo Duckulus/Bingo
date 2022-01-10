@@ -1,5 +1,6 @@
 package de.amin.bingo.team;
 
+import de.amin.bingo.utils.Constants;
 import de.amin.bingo.utils.Localization;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -25,10 +26,13 @@ public class TeamGuiListener implements Listener {
 
         Team scoreboardTeam = teamManager.getTeam(event.getCurrentItem().getType());
 
-        if(isFull(scoreboardTeam.getSize())) {
-            player.sendMessage(Localization.get(player, "team.full"));
-            return;
+        if(Constants.TEAM_LIMIT) {
+            if(isFull(scoreboardTeam.getSize())) {
+                player.sendMessage(Localization.get(player, "team.full"));
+                return;
+            }
         }
+
 
         BingoTeam team = teamManager.addToTeam(player, event.getCurrentItem().getType());
 
