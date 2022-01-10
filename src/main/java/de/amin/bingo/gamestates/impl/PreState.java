@@ -36,7 +36,7 @@ public class PreState extends GameState {
             player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
             player.setFoodLevel(100);
             player.getInventory().clear();
-            player.teleport(player.getWorld().getHighestBlockAt(ThreadLocalRandom.current().nextInt(-25, 25), ThreadLocalRandom.current().nextInt(-25, 25)).getLocation());
+            player.teleport(player.getWorld().getSpawnLocation());
             player.getInventory().setItem(0, new ItemBuilder(Material.ORANGE_BED).setName(Localization.get(
                     player, "team.item_name"
             )).toItemStack());

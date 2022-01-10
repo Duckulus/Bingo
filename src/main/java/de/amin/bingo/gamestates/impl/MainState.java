@@ -53,7 +53,7 @@ public class MainState extends GameState {
             player.setFoodLevel(100);
             player.getInventory().clear();
             player.getInventory().setItemInOffHand(boardMap);
-            player.teleport(player.getWorld().getHighestBlockAt(ThreadLocalRandom.current().nextInt(-25, 25), ThreadLocalRandom.current().nextInt(-25, 25)).getLocation());
+            player.teleport(player.getWorld().getSpawnLocation());
 
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
             player.sendMessage(Localization.get(player, "game.mainstate.start"));
