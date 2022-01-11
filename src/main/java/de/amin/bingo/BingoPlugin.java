@@ -65,7 +65,7 @@ public final class BingoPlugin extends JavaPlugin {
 
     private void registerListeners(PluginManager pluginManager, GameStateManager gameStateManager, TeamManager teamManager, BingoGame game) {
         pluginManager.registerEvents(new DamageListener(gameStateManager), this);
-        pluginManager.registerEvents(new ConnectionListener(gameStateManager, this, game), this);
+        pluginManager.registerEvents(new ConnectionListener(gameStateManager, teamManager, this, game), this);
         pluginManager.registerEvents(new DropListener(gameStateManager), this);
         pluginManager.registerEvents(new PlayerInteractListener(gameStateManager, teamManager),this);
         pluginManager.registerEvents(new TeamGuiListener(teamManager), this);

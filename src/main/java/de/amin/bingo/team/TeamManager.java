@@ -85,6 +85,13 @@ public class TeamManager {
         return null;
     }
 
+    public void removeFromTeam(Player player) {
+        Team team = getTeam(player);
+        if(team!=null) {
+            team.removeEntry(player.getName());
+        }
+    }
+
     public ArrayList<Team> getTeams() {
         return teams;
     }

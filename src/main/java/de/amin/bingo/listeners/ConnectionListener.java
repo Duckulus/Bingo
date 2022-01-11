@@ -5,6 +5,7 @@ import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.gamestates.impl.MainState;
 import de.amin.bingo.gamestates.impl.PreState;
+import de.amin.bingo.team.TeamManager;
 import de.amin.bingo.utils.ItemBuilder;
 import de.amin.bingo.utils.Localization;
 import org.bukkit.ChatColor;
@@ -21,11 +22,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class ConnectionListener implements Listener {
 
     private final GameStateManager gameStateManager;
+    private final TeamManager teamManager;
     private final BingoPlugin plugin;
     private final BingoGame game;
 
-    public ConnectionListener(GameStateManager gameStateManager, BingoPlugin plugin, BingoGame game) {
+    public ConnectionListener(GameStateManager gameStateManager, TeamManager teamManager, BingoPlugin plugin, BingoGame game) {
         this.gameStateManager = gameStateManager;
+        this.teamManager = teamManager;
         this.plugin = plugin;
         this.game = game;
     }
@@ -58,8 +61,11 @@ public class ConnectionListener implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
+
         if (!(gameStateManager.getCurrentGameState() instanceof PreState)) {
             this.game.getRejoinPlayer().add(event.getPlayer().getUniqueId());
+        } else {
+            teamManager.removeFromTeam(event.getPlayer());
         }
         if (gameStateManager.getCurrentGameState() instanceof MainState && plugin.getServer().getOnlinePlayers().size() == 1) {
             this.plugin.getServer().shutdown();
