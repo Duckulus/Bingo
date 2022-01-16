@@ -45,18 +45,27 @@ public class ConnectionListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
         if(gameStateManager.getCurrentGameState() instanceof PreState) {
-            Player player = event.getPlayer();
-            player.getInventory().clear();
-            player.setGameMode(GameMode.SURVIVAL);
-            player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-            player.setFoodLevel(100);
-            player.getInventory().clear();
-            player.getInventory().setItem(0, new ItemBuilder(Material.ORANGE_BED).setName(Localization.get(
-                    player, "team.item_name"
-            )).toItemStack());
+            setup(player);
+        }else {
+            //because displayname resets after leaving
+            player.setDisplayName(teamManager.getTeam(player).getColor() + player.getName());
         }
 
+    }
+
+    public static void setup(Player player) {
+        player.setLevel(0);
+        player.getInventory().clear();
+        player.setGameMode(GameMode.SURVIVAL);
+        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+        player.setFoodLevel(100);
+        player.getInventory().clear();
+        player.teleport(player.getWorld().getSpawnLocation());
+        player.getInventory().setItem(0, new ItemBuilder(Material.ORANGE_BED).setName(Localization.get(
+                player, "team.item_name"
+        )).toItemStack());
     }
 
     @EventHandler
@@ -66,9 +75,6 @@ public class ConnectionListener implements Listener {
             this.game.getRejoinPlayer().add(event.getPlayer().getUniqueId());
         } else {
             teamManager.removeFromTeam(event.getPlayer());
-        }
-        if (gameStateManager.getCurrentGameState() instanceof MainState && plugin.getServer().getOnlinePlayers().size() == 1) {
-            this.plugin.getServer().shutdown();
         }
 
     }

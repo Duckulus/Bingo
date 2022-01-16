@@ -8,7 +8,7 @@ import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.team.BingoTeam;
 import de.amin.bingo.team.TeamManager;
-import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Config;
 import de.amin.bingo.utils.Localization;
 import de.amin.bingo.utils.TimeUtils;
 import net.md_5.bungee.api.ChatMessageType;
@@ -27,7 +27,7 @@ import org.bukkit.scoreboard.Scoreboard;
 
 public class MainState extends GameState {
 
-    private int time = Constants.GAME_DURATION;
+    private int time = Config.GAME_DURATION;
     private BukkitTask timerTask;
     private BukkitTask gameLoop;
     private final BingoPlugin plugin;
@@ -71,7 +71,7 @@ public class MainState extends GameState {
 
         WorldBorder border = plugin.getServer().getWorlds().get(0).getWorldBorder();
         border.setCenter(0, 0);
-        border.setSize(Constants.BORDER_SIZE);
+        border.setSize(Config.BORDER_SIZE);
 
 
         startTimer();
@@ -102,7 +102,7 @@ public class MainState extends GameState {
                                 item.setFound(true);
                                 plugin.getServer().broadcastMessage(Localization.get(player, "game.mainstate.itemfound", teamManager.getTeam(player).getColor() + player.getName(),
                                         String.valueOf(game.getBoard(teamManager.getTeam(player)).getFoundItems()),
-                                        String.valueOf(Constants.BOARD_SIZE)));
+                                        String.valueOf(Config.BOARD_SIZE)));
                                 plugin.getServer().getOnlinePlayers().forEach(all -> all.playSound(all.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1, 1));
                             }
                         }

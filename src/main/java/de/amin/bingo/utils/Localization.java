@@ -45,7 +45,7 @@ public class Localization {
 
     public static String get(Player player, String key, String... replacements) {
         //look for localization in players locale or fallback to english if not found
-        YamlConfiguration config = localizations.getOrDefault(player.getLocale(), localizations.get(Constants.DEFAULT_LOCALE));
+        YamlConfiguration config = localizations.getOrDefault(player.getLocale(), localizations.get(Config.DEFAULT_LOCALE));
         if (config != null && config.get(key) != null) {
             String localizedMessage = ChatColor.translateAlternateColorCodes('&', config.getString(key));
             for (int i = 0; i < replacements.length; i++) {

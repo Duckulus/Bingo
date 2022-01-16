@@ -1,10 +1,10 @@
 package de.amin.bingo.game.board;
 
-import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Config;
 
 public class BingoBoard {
 
-    private BingoItem[] bingoItems = new BingoItem[Constants.BOARD_SIZE];
+    private BingoItem[] bingoItems = new BingoItem[Config.BOARD_SIZE];
 
     public BingoBoard(BingoMaterial[] items) {
         for (int i = 0; i < items.length; i++) {

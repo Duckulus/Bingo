@@ -5,7 +5,7 @@ import de.amin.bingo.game.board.BingoBoard;
 import de.amin.bingo.game.board.BingoMaterial;
 import de.amin.bingo.game.board.map.BoardRenderer;
 import de.amin.bingo.team.TeamManager;
-import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Config;
 import org.bukkit.scoreboard.Team;
 
 import java.util.*;
@@ -15,7 +15,7 @@ public class BingoGame {
     private BingoPlugin plugin;
     private TeamManager teamManager;
     private HashMap<Team, BingoBoard> boards;
-    BingoMaterial[] items = new BingoMaterial[Constants.BOARD_SIZE];
+    BingoMaterial[] items = new BingoMaterial[Config.BOARD_SIZE];
     private BoardRenderer renderer;
     private final List<UUID> rejoinPlayer;
 

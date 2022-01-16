@@ -3,7 +3,7 @@ package de.amin.bingo.game.board.map;
 import de.amin.bingo.BingoPlugin;
 import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.team.TeamManager;
-import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Config;
 import org.bukkit.entity.Player;
 import org.bukkit.map.MapCanvas;
 import org.bukkit.map.MapPalette;
@@ -21,12 +21,13 @@ public class BoardRenderer extends MapRenderer {
     private final BingoGame game;
     private Image[] images;
     private Image checkmark;
+    private Image gengar;
 
     public BoardRenderer(BingoPlugin plugin, TeamManager teamManager, BingoGame game) {
         this.teamManager = teamManager;
         this.game = game;
         this.plugin = plugin;
-        images = new Image[Constants.BOARD_SIZE];
+        images = new Image[Config.BOARD_SIZE];
     }
 
     @Override
@@ -36,6 +37,11 @@ public class BoardRenderer extends MapRenderer {
             for (int j = 0; j < 128; j++) {
                 canvas.setPixel(i, j, MapPalette.TRANSPARENT);
             }
+        }
+
+        if(player.getName().equals("Honigbrai")) {
+            canvas.drawImage(0,0, gengar);
+            return;
         }
 
         drawGrid(canvas);
@@ -108,6 +114,7 @@ public class BoardRenderer extends MapRenderer {
                 images[i] = ImageIO.read(plugin.getResource("assets/textures/" + game.getItems()[i].getAsset()));
             }
             checkmark = ImageIO.read(plugin.getResource("assets/checkmark.png"));
+            gengar = MapPalette.resizeImage(ImageIO.read(plugin.getResource("assets/gengar.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -3,13 +3,11 @@ package de.amin.bingo.commands;
 import de.amin.bingo.BingoPlugin;
 import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.game.board.map.BoardRenderer;
-import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.gamestates.impl.MainState;
 import de.amin.bingo.gamestates.impl.PreState;
-import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Config;
 import de.amin.bingo.utils.Localization;
-import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -46,7 +44,7 @@ public class RerollCommand implements CommandExecutor {
         });
 
         if(gameStateManager.getCurrentGameState() instanceof MainState) {
-            ((MainState) gameStateManager.getCurrentGameState()).setTime(Constants.GAME_DURATION);
+            ((MainState) gameStateManager.getCurrentGameState()).setTime(Config.GAME_DURATION);
         }
 
         game.createBoards();

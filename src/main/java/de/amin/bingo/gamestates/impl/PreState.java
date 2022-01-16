@@ -3,7 +3,8 @@ package de.amin.bingo.gamestates.impl;
 import de.amin.bingo.BingoPlugin;
 import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
-import de.amin.bingo.utils.Constants;
+import de.amin.bingo.listeners.ConnectionListener;
+import de.amin.bingo.utils.Config;
 import de.amin.bingo.utils.ItemBuilder;
 import de.amin.bingo.utils.Localization;
 import net.md_5.bungee.api.ChatMessageType;
@@ -16,7 +17,7 @@ public class PreState extends GameState {
 
     private final BingoPlugin plugin;
     private final GameStateManager gameStateManager;
-    private int time = Constants.PRESTATE_TIME;
+    private int time = Config.PRESTATE_TIME;
     private BukkitTask timerTask;
 
     public PreState(BingoPlugin plugin, GameStateManager gameStateManager) {
@@ -26,17 +27,7 @@ public class PreState extends GameState {
 
     @Override
     public void start() {
-        plugin.getServer().getOnlinePlayers().forEach(player -> {
-            player.setGameMode(GameMode.SURVIVAL);
-            player.setLevel(0);
-            player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-            player.setFoodLevel(100);
-            player.getInventory().clear();
-            player.teleport(player.getWorld().getSpawnLocation());
-            player.getInventory().setItem(0, new ItemBuilder(Material.ORANGE_BED).setName(Localization.get(
-                    player, "team.item_name"
-            )).toItemStack());
-        });
+        plugin.getServer().getOnlinePlayers().forEach(ConnectionListener::setup);
         startTimer();
     }
 
@@ -50,7 +41,7 @@ public class PreState extends GameState {
 
         timerTask = server.getScheduler().runTaskTimer(plugin, () -> {
             if (time > 0) {
-                if (server.getOnlinePlayers().size() >= Constants.MIN_PLAYERS) {
+                if (server.getOnlinePlayers().size() >= Config.MIN_PLAYERS) {
                     server.getOnlinePlayers().forEach(player -> {
 
                         switch (time) {
@@ -72,9 +63,9 @@ public class PreState extends GameState {
                     });
                     time--;
                 } else {
-                    time = Constants.PRESTATE_TIME;
+                    time = Config.PRESTATE_TIME;
                     plugin.getServer().getOnlinePlayers().forEach(player -> {
-                        int missingPlayers = Constants.MIN_PLAYERS - plugin.getServer().getOnlinePlayers().size();
+                        int missingPlayers = Config.MIN_PLAYERS - plugin.getServer().getOnlinePlayers().size();
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(Localization.get(player, "game.prestate.player_missing", String.valueOf(missingPlayers))).create());
                     });
                 }

@@ -1,12 +1,11 @@
 package de.amin.bingo.team;
 
-import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Config;
 import de.amin.bingo.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Team;
 
 public class TeamGui implements Listener {
@@ -27,7 +26,7 @@ public class TeamGui implements Listener {
             BingoTeam bingoTeam = BingoTeam.values()[index];
             Team team = teamManager.getTeam(bingoTeam.getItem());
             inventory.setItem(i, new ItemBuilder(bingoTeam.getItem()).setName(bingoTeam.getColor() + bingoTeam.getLocalizedName(player))
-                    .addLoreLine(Constants.TEAM_LIMIT ?
+                    .addLoreLine(Config.TEAM_LIMIT ?
                             "§8<§7" +  team.getSize() + "/" + getMaxTeamSize() + "§8>"
                             : "§8<§7" +  team.getSize() + " " + ( team.getSize()==1 ? "Player" : "Players") + "§8>")
                     .toItemStack());

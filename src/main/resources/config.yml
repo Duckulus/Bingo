@@ -2,6 +2,9 @@
 #Bingo By Duckulus#
 ###################
 
+# The Current Config Version. DO NOT CHANGE OR THINGS WILL BREAK
+configVersion: 1.0
+
 # The time before the game starts | DEFAULT=60
 lobbyTime: 60
 # The amount of Players required for the game to start | DEFAULT=2
@@ -18,3 +21,6 @@ defaultLocale: "en_us"
 teamlimit: true
 # If Pvp is enabled or not
 pvp: false
+# Wether the world should be wiped after the end of each round. It's recommended to turn this to true.
+# WARNING: If you turn this to true on a server with an already thriving world without a backup it will be lost for ever!
+worldReset: false

@@ -2,7 +2,7 @@ package de.amin.bingo.listeners;
 
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.gamestates.impl.MainState;
-import de.amin.bingo.utils.Constants;
+import de.amin.bingo.utils.Config;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +28,7 @@ public class DamageListener implements Listener {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if(!Constants.PVP) {
+        if(!Config.PVP) {
             if(event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
                 event.setCancelled(true);
             }

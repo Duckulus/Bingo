@@ -7,6 +7,7 @@ import de.amin.bingo.gamestates.GameState;
 import de.amin.bingo.gamestates.GameStateManager;
 import de.amin.bingo.listeners.*;
 import de.amin.bingo.team.TeamManager;
+import de.amin.bingo.utils.Config;
 import de.amin.bingo.utils.Localization;
 import de.amin.bingo.team.TeamGuiListener;
 import org.apache.commons.io.FileUtils;
@@ -28,15 +29,30 @@ public final class BingoPlugin extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        resetWorld();
+        INSTANCE = this;
+        if(Config.WORLD_RESET) {
+            resetWorld();
+        }
     }
 
     @Override
     public void onEnable() {
-        INSTANCE = this;
+
+        if(getConfig().getBoolean("resetWorld")) {
+            resetWorld();
+        }
 
         Localization.load();
         getLogger().info(ChatColor.GREEN + "Plugin has been initialized");
+
+        //replace config if deprecated
+        if(Config.isDeprecated()) {
+            if(new File(getDataFolder(), "config.yml").delete()) {
+                getLogger().warning("Deleted outdated Configuration!");
+            }
+        } else {
+            getLogger().info("Configuration is up to date!");
+        }
 
         saveDefaultConfig();
 
