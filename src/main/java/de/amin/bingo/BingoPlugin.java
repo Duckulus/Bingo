@@ -38,10 +38,6 @@ public final class BingoPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        if(getConfig().getBoolean("resetWorld")) {
-            resetWorld();
-        }
-
         Localization.load();
         getLogger().info(ChatColor.GREEN + "Plugin has been initialized");
 
