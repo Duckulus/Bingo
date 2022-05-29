@@ -3,19 +3,16 @@ package de.amin.bingo.listeners;
 import de.amin.bingo.BingoPlugin;
 import de.amin.bingo.game.BingoGame;
 import de.amin.bingo.gamestates.GameStateManager;
-import de.amin.bingo.gamestates.impl.MainState;
 import de.amin.bingo.gamestates.impl.PreState;
 import de.amin.bingo.team.TeamManager;
 import de.amin.bingo.utils.ItemBuilder;
 import de.amin.bingo.utils.Localization;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -33,24 +30,29 @@ public class ConnectionListener implements Listener {
         this.game = game;
     }
 
-    @EventHandler
-    public void onConnect(AsyncPlayerPreLoginEvent event) {
-        if (!(this.gameStateManager.getCurrentGameState() instanceof PreState)) {
-            if (!this.game.getRejoinPlayer().contains(event.getUniqueId())) {
-                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.RED + "This Game has already started!");
-            }
-
-        }
-    }
+//    @EventHandler
+//    public void onConnect(AsyncPlayerPreLoginEvent event) {
+//        if (!(this.gameStateManager.getCurrentGameState() instanceof PreState)) {
+//            if (!this.game.getRejoinPlayer().contains(event.getUniqueId())) {
+//                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.RED + "This Game has already started!");
+//            }
+//
+//        }
+//    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if(gameStateManager.getCurrentGameState() instanceof PreState) {
+        if (gameStateManager.getCurrentGameState() instanceof PreState) {
             setup(player);
-        }else {
+        } else {
+            if (!this.game.getRejoinPlayer().contains(event.getPlayer().getUniqueId())) {
+                player.setGameMode(GameMode.SPECTATOR);
+                player.sendMessage(Localization.get(player, "game.mainstate.already_started"));
+            }
             //because displayname resets after leaving
-            player.setDisplayName(teamManager.getTeam(player).getColor() + player.getName());
+            if (teamManager.getTeam(player) != null)
+                player.setDisplayName(teamManager.getTeam(player).getColor() + player.getName());
         }
 
     }

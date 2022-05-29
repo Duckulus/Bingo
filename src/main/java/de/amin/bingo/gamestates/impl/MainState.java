@@ -90,7 +90,7 @@ public class MainState extends GameState {
         score.setDisplaySlot(DisplaySlot.PLAYER_LIST);
 
         gameLoop = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
-            plugin.getServer().getOnlinePlayers().forEach(player -> {
+            plugin.getServer().getOnlinePlayers().stream().filter(player -> teamManager.getTeam(player)!=null).forEach(player -> {
 
                 score.getScore(player.getName()).setScore(game.getBoard(teamManager.getTeam(player)).getFoundItems());
 
@@ -112,9 +112,7 @@ public class MainState extends GameState {
 
             teamManager.getTeams().forEach(team -> {
                 if (game.checkWin(team)) {
-                    Bukkit.getOnlinePlayers().forEach(player -> {
-                        player.sendMessage(Localization.get(player, "game.mainstate.win", BingoTeam.get(team.getName()).getLocalizedName(player)));
-                    });
+                    Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(Localization.get(player, "game.mainstate.win", BingoTeam.get(team.getName()).getLocalizedName(player))));
                     score.unregister();
                     gameStateManager.setGameState(GameState.END_STATE);
                 }
@@ -143,9 +141,7 @@ public class MainState extends GameState {
 
                 time--;
             } else {
-                plugin.getServer().getOnlinePlayers().forEach(player -> {
-                    player.sendMessage(Localization.get(player, "game.mainstate.no_winner"));
-                });
+                plugin.getServer().getOnlinePlayers().forEach(player -> player.sendMessage(Localization.get(player, "game.mainstate.no_winner")));
                 gameLoop.cancel();
                 score.unregister();
                 gameStateManager.setGameState(GameState.END_STATE);

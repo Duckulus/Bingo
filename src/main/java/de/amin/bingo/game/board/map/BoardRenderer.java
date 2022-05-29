@@ -19,7 +19,7 @@ public class BoardRenderer extends MapRenderer {
     private final BingoPlugin plugin;
     private final TeamManager teamManager;
     private final BingoGame game;
-    private Image[] images;
+    private final Image[] images;
     private Image checkmark;
     private Image gengar;
 
@@ -39,7 +39,7 @@ public class BoardRenderer extends MapRenderer {
             }
         }
 
-        if(player.getName().equals("Honigbrai")) {
+        if(player.getName().equals("honigbrai")) {
             canvas.drawImage(0,0, gengar);
             return;
         }

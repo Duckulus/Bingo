@@ -8,6 +8,7 @@ game:
     win: "&9BINGO! &6{0} &9won the game"
     end: "&6The Game will end in &c{0} Seconds&6!"
     no_winner: "&cNo one finished, so there is no winner!"
+    already_started: "§cThe game has already started. You can spectate the other players"
   endingstate:
     server_restart: "&8The Game has ended. The Server will close down shortly!"
 command:

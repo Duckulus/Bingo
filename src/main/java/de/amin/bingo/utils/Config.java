@@ -25,7 +25,7 @@ public class Config {
     public static int BOARD_SIZE = 16;
 
     public static boolean isDeprecated() {
-        YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(new File("plugins\\Bingo\\config.yml"));
+        YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(new File(BingoPlugin.INSTANCE.getDataFolder(), "config.yml"));
         return CURRENT_CONFIG_VERSION>yamlConfiguration.getDouble("configVersion");
     }
 

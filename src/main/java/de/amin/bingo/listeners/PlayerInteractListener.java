@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerInteractListener implements Listener {
 
-    private GameStateManager gameStateManager;
-    private TeamManager teamManager;
+    private final GameStateManager gameStateManager;
+    private final TeamManager teamManager;
 
     public PlayerInteractListener(GameStateManager gameStateManager, TeamManager teamManager) {
         this.gameStateManager = gameStateManager;
@@ -24,18 +24,20 @@ public class PlayerInteractListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        if(gameStateManager.getCurrentGameState() instanceof PreState) {
+        if (gameStateManager.getCurrentGameState() instanceof PreState) {
             Player player = event.getPlayer();
-            if(player.getInventory().getItemInMainHand().getType().equals(Material.ORANGE_BED)) {
+            if (player.getInventory().getItemInMainHand().getType().equals(Material.ORANGE_BED)) {
                 player.openInventory(new TeamGui(player, teamManager).getInventory());
             }
-            event.setCancelled(true);
+            if (!event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
+                event.setCancelled(true);
+            }
         }
     }
 
     @EventHandler
     public void onEntityInteract(PlayerInteractEntityEvent event) {
-        if(gameStateManager.getCurrentGameState() instanceof PreState && event.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
+        if (gameStateManager.getCurrentGameState() instanceof PreState && event.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
             event.setCancelled(true);
         }
     }
