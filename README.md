@@ -46,6 +46,6 @@ After that you can open a Pull request.
 
 #### Inspired by: [HGLabor Bingo](https://github.com/HGLabor/Bingo)
 
-#### Download: [SpigotMC](https://www.spigotmc.org/resources/bingo.98825/)
+#### Download: [SpigotMC](https://www.spigotmc.org/resources/bingo.98825/) [Hangar](https://hangar.papermc.io/Duckulus/Bingo)
         
 
