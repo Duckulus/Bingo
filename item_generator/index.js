@@ -4,6 +4,7 @@ const fs = require("fs");
 const version = "1.21";
 const url = "https://api.github.com/repos/InventivetalentDev/minecraft-assets/contentsassets/minecraft/textures/item?ref=" + version;
 
+// Excluded items which are unobtainable in survival mode or too hard to get
 const banneditems = [
     "barrier",
     "knowledge_book",
@@ -43,7 +44,8 @@ function checker(value) {
     if(result) return true;
     return false;
   }
-
+  
+if (!fs.existsSync("./assets")) fs.mkdirSync("./assets");
 fetch(url).then(res => res.json()).then(json => {
     json.forEach(item => {
         if (!checker(item.name.replace(".png", ""))) {
