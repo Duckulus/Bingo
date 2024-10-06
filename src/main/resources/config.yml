@@ -12,7 +12,7 @@ minPlayers: 2
 # The size of the WorldBorder | DEFAULT=10000
 borderSize: 10000
 # The time the timer skips to when forcestarting the game | DEFAULT=15
-forcestartTime: 15
+forcestartTime: 10
 # The duration of the main phase of the game in seconds | DEFAULT=1800
 gameDuration: 1800
 # The Language that gets shown to players who use an unsupported Language | DEFAULT=en_us
