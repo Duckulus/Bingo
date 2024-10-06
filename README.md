@@ -3,7 +3,7 @@
 ---
 
 ### The first one to find 4 items in a line wins  
-### A simple Bingo Plugin for Spigot 1.18.1
+### A simple Bingo Plugin for Spigot 1.21.x
 
 
 ## Preview
